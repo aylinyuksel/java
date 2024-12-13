@@ -1,6 +1,7 @@
 package javaproject;
 
 public class main {
-cbdfsdsdfsdff
-//ayse
+	//cbdfsdsdfsdff
+	//ayse
+	//ayse yorum
 }
