@@ -1,7 +1,5 @@
 package main;
 
-import javax.sql.rowset.spi.SyncResolver;
-
 import entity.Entity;
 
 
