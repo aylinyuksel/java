@@ -208,10 +208,10 @@ public class Player extends Entity {
 				image=right2;
 			}
 			if(spriteNum==3) {
-				image=left3;
+				image=right3;
 			}
 			if(spriteNum==4) {
-				image=left4;
+				image=right4;
 			}
 			break;
 
