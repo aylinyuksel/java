@@ -1,11 +1,16 @@
 package main;
 
+import javax.sql.rowset.spi.SyncResolver;
+
 import entity.Entity;
 
+
+//geldi mi bak
 public class CollisionChecker {
 
     GamePanel gp;
-	
+
+
 	public CollisionChecker(GamePanel gp) {
 
 		this.gp = gp;
