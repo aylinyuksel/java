@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 public class Player extends Entity {
     GamePanel gp;
@@ -19,7 +20,8 @@ public class Player extends Entity {
 	public final int screenX;
 	public final int screenY; 
 	//final dedik çünkü oyun boyunca pozisyonları değişmeyecek, kamera farklı yerleri gösterecek ama bu eleman hep ortada kalsın istiyoruz
-	
+	public int hasKey = 0;
+	int standCounter = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
@@ -32,6 +34,8 @@ public class Player extends Entity {
 		solidArea = new Rectangle();
 		solidArea.x = 8; //solid area nın başlangıç köşesi
 		solidArea.y = 16;
+		solidAreaDefaultX = solidArea.x;
+		solidAreaDefaultY = solidArea.y;
 		solidArea.width = 32;
 		solidArea.height = 32;
 		
@@ -49,33 +53,40 @@ public class Player extends Entity {
 	}
 	
 	public void getPlayerImage() {
-		
-		try {
-			
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/up1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player/up2.png"));
-			up3 = ImageIO.read(getClass().getResourceAsStream("/player/up3.png"));
-			up4 = ImageIO.read(getClass().getResourceAsStream("/player/up4.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/down1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player/down2.png"));
-			down3 = ImageIO.read(getClass().getResourceAsStream("/player/down3.png"));
-			down4 = ImageIO.read(getClass().getResourceAsStream("/player/down4.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player/left1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player/left2.png"));
-			left3 = ImageIO.read(getClass().getResourceAsStream("/player/left3.png"));
-			left4 = ImageIO.read(getClass().getResourceAsStream("/player/left4.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player/right1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player/right2.png"));
-			right3 = ImageIO.read(getClass().getResourceAsStream("/player/right3.png"));
-			right4 = ImageIO.read(getClass().getResourceAsStream("/player/right4.png"));
 
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		up1 = setup("up1");
+		up2 = setup("up2");
+		up3 = setup("up3");
+		up4 = setup("up4");
+		down1 = setup("down1");
+		down2 = setup("down2");
+		down3 = setup("down3");
+		down4 = setup("down4");
+		left1 = setup("left1");
+		left2 = setup("left2");
+		left3 = setup("left3");
+		left4 = setup("left4");
+		right1 = setup("right1");
+		right2 = setup("right2");
+		right3 = setup("right3");
+		right4 = setup("right4");
+
 	}
 	
+	public BufferedImage setup(String imageName) {
+		
+		UtilityTool uTool = new UtilityTool();
+		BufferedImage image = null;
+		
+		try {
+			image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
+			image = uTool.scaledImage(image, gp.tileSize, gp.tileSize);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return image;
+		
+	}
 	
 	public void update() {
 		
@@ -92,27 +103,25 @@ public class Player extends Entity {
 			}
 					
 			if(keyH.downPressed == true) {
-				direction ="down";
-				
-						
+				direction ="down";	
 			}
 
 			if(keyH.leftPressed == true) {
 				direction = "left";
-				
-
 			}
 
 			if(keyH.rightPressed == true) {
 				direction = "right";
-				
-				
 			}		
 			
 			
 			//check tile collision
 			collisionOn = false;
 			gp.collisionC.checkTile(this);
+			
+			//check obj collison
+			int objIndex = gp.collisionC.checkObject(this, true);
+			pickUpObject(objIndex);
 			
 			//if collision is false player cant move
 			if (collisionOn == false) {
@@ -127,9 +136,6 @@ public class Player extends Entity {
 				
 			}
 			
-			
-			
-			
 			spriteCounter++; //anlamadim tam bi daha bak
 			
 			if(spriteCounter > 12) {
@@ -139,12 +145,58 @@ public class Player extends Entity {
 				else if(spriteNum==4) {
 					spriteNum = 1;
 				}
-				
 				spriteCounter=0;
 			}			
 		
 		}
+		else { //to look more natural when stopping sideway 
+			
+			standCounter++; 
+			if(standCounter == 20) { //frames
+				spriteNum = 1;
+				standCounter = 0;
+			}
+		}
+	}
+	
+	public void pickUpObject(int i) {
 		
+		if(i != 999) {
+			
+			String objectName = gp.obj[i].name;
+			
+			switch(objectName) {
+			case "Key": 
+				gp.playSE(1);
+				hasKey++;
+				gp.obj[i] = null; //delete
+				gp.ui.showMessage("You Got a Key!");
+				break;
+			case "Door": 
+				gp.playSE(3);
+				if(hasKey>0) {
+					gp.obj[i] = null;
+					hasKey--;
+					gp.ui.showMessage("You Opened the Door!");
+				}
+				else {
+					gp.ui.showMessage("You Need a Key!");
+				}
+				
+				break;
+			case "Boots":
+				gp.playSE(2);
+				speed += 1;
+				gp.obj[i] = null;
+				gp.ui.showMessage("Speed Up!");
+				break;
+			case "Chest":
+				gp.ui.gameFinished = true;
+				gp.stopMusic();
+				gp.playSE(4);
+				break;
+			}
+		}
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -217,7 +269,7 @@ public class Player extends Entity {
 
 		}
 		
-		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize,null);
+		g2.drawImage(image, screenX, screenY, null);
 		
 		
 	}

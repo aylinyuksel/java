@@ -17,6 +17,7 @@ public class Entity {
 	public int spriteNum = 1;
 	
 	public Rectangle solidArea; //Rectangle classıyla invisible bi dörtgen olusturabilirim(x,y,width,height)
+	public int solidAreaDefaultX, solidAreaDefaultY;
 	public boolean collisionOn=false;
 
 }
