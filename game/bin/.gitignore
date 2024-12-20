@@ -1,8 +1,4 @@
-/entity/
 /main/
-/maps/
-/tile/
-/tiles/
-/objects/
-/object/
-/sound/
+/npc/
+/entity/
+/font/

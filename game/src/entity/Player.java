@@ -13,19 +13,20 @@ import main.KeyHandler;
 import main.UtilityTool;
 
 public class Player extends Entity {
-    GamePanel gp;
+   
 	KeyHandler keyH;
 	
 	//bu değişkenler playerı screende nereye koyacağımızı gösterir
 	public final int screenX;
 	public final int screenY; 
 	//final dedik çünkü oyun boyunca pozisyonları değişmeyecek, kamera farklı yerleri gösterecek ama bu eleman hep ortada kalsın istiyoruz
-	public int hasKey = 0;
+	//public int hasKey = 0;
 	int standCounter = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
+		super(gp);
 		
-		this.gp = gp;
+		
 		this.keyH = keyH;
 		
 		screenX = gp.screenWidth/2 - (gp.tileSize/2);
@@ -54,39 +55,25 @@ public class Player extends Entity {
 	
 	public void getPlayerImage() {
 
-		up1 = setup("up1");
-		up2 = setup("up2");
-		up3 = setup("up3");
-		up4 = setup("up4");
-		down1 = setup("down1");
-		down2 = setup("down2");
-		down3 = setup("down3");
-		down4 = setup("down4");
-		left1 = setup("left1");
-		left2 = setup("left2");
-		left3 = setup("left3");
-		left4 = setup("left4");
-		right1 = setup("right1");
-		right2 = setup("right2");
-		right3 = setup("right3");
-		right4 = setup("right4");
+		up1 = setup("/player/up1");
+		up2 = setup("/player/up2");
+		up3 = setup("/player/up3");
+		up4 = setup("/player/up4");
+		down1 = setup("/player/down1");
+		down2 = setup("/player/down2");
+		down3 = setup("/player/down3");
+		down4 = setup("/player/down4");
+		left1 = setup("/player/left1");
+		left2 = setup("/player/left2");
+		left3 = setup("/player/left3");
+		left4 = setup("/player/left4");
+		right1 = setup("/player/right1");
+		right2 = setup("/player/right2");
+		right3 = setup("/player/right3");
+		right4 = setup("/player/right4");
 
 	}
 	
-	public BufferedImage setup(String imageName) {
-		
-		UtilityTool uTool = new UtilityTool();
-		BufferedImage image = null;
-		
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-			image = uTool.scaledImage(image, gp.tileSize, gp.tileSize);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return image;
-		
-	}
 	
 	public void update() {
 		
@@ -122,6 +109,9 @@ public class Player extends Entity {
 			//check obj collison
 			int objIndex = gp.collisionC.checkObject(this, true);
 			pickUpObject(objIndex);
+			//CHECK NPC COLLISON
+			int npcIndex=gp.cChecker.checkEntity(this,gp.npc);
+			interactNPC(npcIndex);
 			
 			//if collision is false player cant move
 			if (collisionOn == false) {
@@ -163,42 +153,17 @@ public class Player extends Entity {
 		
 		if(i != 999) {
 			
-			String objectName = gp.obj[i].name;
-			
-			switch(objectName) {
-			case "Key": 
-				gp.playSE(1);
-				hasKey++;
-				gp.obj[i] = null; //delete
-				gp.ui.showMessage("You Got a Key!");
-				break;
-			case "Door": 
-				gp.playSE(3);
-				if(hasKey>0) {
-					gp.obj[i] = null;
-					hasKey--;
-					gp.ui.showMessage("You Opened the Door!");
-				}
-				else {
-					gp.ui.showMessage("You Need a Key!");
-				}
-				
-				break;
-			case "Boots":
-				gp.playSE(2);
-				speed += 1;
-				gp.obj[i] = null;
-				gp.ui.showMessage("Speed Up!");
-				break;
-			case "Chest":
-				gp.ui.gameFinished = true;
-				gp.stopMusic();
-				gp.playSE(4);
-				break;
-			}
 		}
 	}
-	
+	public void interactNPC(int i) {
+		if(i!=999) {
+			if(gp.keyH.enterPressed==true) {
+				gp.gameState=gp.dialogueState;
+				gp.npc[i].speak();
+			}
+		}
+		gp.keyH.enterPressed=false;
+	}
 	public void draw(Graphics2D g2) {
 		
 		BufferedImage image = null;

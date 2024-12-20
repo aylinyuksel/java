@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -33,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	
 	//SYSTEM
-	KeyHandler keyH = new KeyHandler();
+	public KeyHandler keyH = new KeyHandler(this);
 	TileManager tileM = new TileManager(this);
 	Sound music = new Sound();
 	Sound se = new Sound();
@@ -52,6 +53,16 @@ public class GamePanel extends JPanel implements Runnable {
 	//ENTITY AND OBJECTS
 	public Player player = new Player(this, keyH);
 	public SuperObject obj[] = new SuperObject[10];  //ayni anda max 10 obj
+	public Entity npc[]=new Entity[10];
+	
+	//GAME STATE
+	public int gameState;
+	public final int playState=1;
+	public final int pauseState=2;
+	 public CollisionChecker cChecker;
+	public final int dialogueState=3;
+	
+	
 	
 	
 	
@@ -68,8 +79,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public void setUpGame() {
 		
 		aSetter.setObject();
-		
+		aSetter.setNPC();
 		playMusic(0);
+		stopMusic();
+		gameState=1;
 	}
 	
 	public void startGameThread() {
@@ -104,9 +117,20 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 	
 	public void update() { 
-		
-		player.update();
-		
+		if(gameState==playState) {
+			//Player
+			player.update();
+			//npc
+			for(int i=0;i<npc.length;i++) {
+				if(npc[i]!=null) {
+					npc[i].update();
+				}
+			}
+		}
+		if(gameState==pauseState) {
+			//nothing
+		}
+		//player.update(); bunu sakın etkinleştirmeyin yoksa pause olunca karakter hareket edebilir.
 	}
 	
 	@Override
@@ -126,6 +150,12 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 		}
 		
+		//NPC
+		for(int i=0;i<npc.length;i++) {
+			if(npc[i]!=null) {
+				npc[i].draw(g2);
+			}
+		}
 		player.draw(g2);
 		
 		//UI
