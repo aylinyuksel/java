@@ -13,7 +13,7 @@ import main.KeyHandler;
 import main.UtilityTool;
 
 public class Player extends Entity {
-   
+     
 	KeyHandler keyH;
 	
 	//bu değişkenler playerı screende nereye koyacağımızı gösterir
@@ -25,7 +25,6 @@ public class Player extends Entity {
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		super(gp);
-		
 		
 		this.keyH = keyH;
 		
@@ -102,12 +101,12 @@ public class Player extends Entity {
 			}		
 			
 			
-			//check tile collision
+			//check tile collision 
 			collisionOn = false;
 			gp.collisionC.checkTile(this);
 			
 			//check obj collison
-			int objIndex = gp.collisionC.checkObject(this, true);
+			int objIndex = gp.cChecker.checkObject(this, true);
 			pickUpObject(objIndex);
 			//CHECK NPC COLLISON
 			int npcIndex=gp.cChecker.checkEntity(this,gp.npc);

@@ -20,13 +20,14 @@ public class KeyHandler implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		
 		int code = e.getKeyCode(); //returns the integer keyCode associated with the key in this event
+		//Play State
 		if(gp.gameState==gp.playState) {
 			if(code == KeyEvent.VK_W) {
 				upPressed=true;
 				
 			}
 			
-			if(code == KeyEvent.VK_S) {
+			if(code == KeyEvent.VK_S) { 
 				downPressed = true;
 				
 			}
@@ -41,22 +42,24 @@ public class KeyHandler implements KeyListener {
 				
 			}
 			if(code == KeyEvent.VK_P) {
-				gp.gameState=gp.pauseState;			
-		}if(code == KeyEvent.VK_ENTER) {
-			 enterPressed = true;;			
-	}
+				gp.gameState = gp.pauseState;
+			}
+			if(code == KeyEvent.VK_ENTER) {
+				enterPressed = true;
+			}
+			
+		}
 		//PAUSE STATE
 			else if(gp.gameState==gp.pauseState) {
 		   if(code==KeyEvent.VK_P) {
-			   gp.gameState=gp.pauseState;
+			   gp.gameState=gp.playState;
 		   }
 	   }
 	   //DIALOGUE STATE
 			else if(gp.gameState==gp.dialogueState) {
 			if(code==KeyEvent.VK_ENTER) {
 				gp.gameState=gp.playState;
-		}
-	      }
+			}
 		}
 	}
 	@Override

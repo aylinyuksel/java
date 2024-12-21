@@ -36,10 +36,10 @@ public class GamePanel extends JPanel implements Runnable {
 	//SYSTEM
 	public KeyHandler keyH = new KeyHandler(this);
 	TileManager tileM = new TileManager(this);
-	Sound music = new Sound();
+	Sound music = new Sound(); 
 	Sound se = new Sound();
 	public CollisionChecker collisionC = new CollisionChecker(this);
-	public AssetSetter aSetter = new AssetSetter(this);
+	public AssetSetter aSetter = new AssetSetter(this); 
 	public UI ui = new UI(this);
 	Thread gameThread;
 	//Thread, çoklu işlemler gerçekleştirmek için kullanılan  bir sınıf
@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public int gameState;
 	public final int playState=1;
 	public final int pauseState=2;
-	 public CollisionChecker cChecker;
+	public CollisionChecker cChecker;
 	public final int dialogueState=3;
 	
 	
@@ -73,6 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setDoubleBuffered(true); //görüntüyü daha temiz hale getirmek için 
 		this.setFocusable(true);
 		this.addKeyListener(keyH);
+		this.cChecker = new CollisionChecker(this); 
 		
 	}
 	
@@ -112,7 +113,7 @@ public class GamePanel extends JPanel implements Runnable {
 				e.printStackTrace();
 			}
 			
-		}
+		} 
 
 	}
 	

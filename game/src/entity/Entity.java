@@ -57,20 +57,20 @@ public class Entity {
 			break;
 		}
 	   }
-	}
 	
 	public void update() {
 		setAction();
 		
 		collisionOn=false;
-		gp.cChecker.checkTile(this);
+		gp.cChecker.checkTile(this); 
 		
 		gp.cChecker.checkObject(this, false);
 		gp.cChecker.checkPlayer(this);
 		
+		
 		if(collisionOn==false) {
 			switch(direction) {
-			case "up":worldY-=speed;break;
+			case "up":worldY-=speed;break; 
 			case "down":worldY+=speed;break;
 			case "left":worldX-=speed;break;
 			case "right":worldX+=speed;break;
@@ -87,6 +87,7 @@ public class Entity {
 		}
 	}
 	public void draw(Graphics2D g2) {
+		BufferedImage image = null;
 		int screenX = worldX - gp.player.worldX +gp.player.screenX;
 		int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
@@ -95,7 +96,7 @@ public class Entity {
 		   worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
 		   worldY - gp.tileSize< gp.player.worldY + gp.player.screenY) {
 			
-			BufferedImage image = null;
+			
 			
 			switch(direction) {
 			case "up":
@@ -176,7 +177,7 @@ public BufferedImage setup(String imagePath) {
 			image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
 			image = uTool.scaledImage(image, gp.tileSize, gp.tileSize);
 		} catch (IOException e) {
-			
+			e.printStackTrace();
 		}
 		return image;
 		
