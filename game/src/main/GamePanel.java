@@ -57,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	//GAME STATE
 	public int gameState;
+	public final int titleState = 0;
 	public final int playState=1;
 	public final int pauseState=2;
 	public CollisionChecker cChecker;
@@ -83,7 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.setNPC();
 		playMusic(0);
 		stopMusic();
-		gameState=1;
+		gameState=titleState;
 	}
 	
 	public void startGameThread() {
@@ -151,18 +152,28 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 		}
 		
-		//NPC
-		for(int i=0;i<npc.length;i++) {
-			if(npc[i]!=null) {
-				npc[i].draw(g2);
-			}
+		//TITLE SCREEN
+		if(gameState == titleState) {
+			ui.draw(g2);
 		}
-		player.draw(g2);
 		
-		//UI
-		ui.draw(g2);
+		//OTHERS
+		else {
+			//NPC
+			for(int i=0;i<npc.length;i++) {
+				if(npc[i]!=null) {
+					npc[i].draw(g2);
+				}
+			}
+			player.draw(g2);
+			
+			//UI
+			ui.draw(g2);
+			
+			g2.dispose(); //çizim sonrası kullanılan kaynakları bırakıır (gereksiz bellek kullanımını engellemek için)
+			
+		}
 		
-		g2.dispose(); //çizim sonrası kullanılan kaynakları bırakıır (gereksiz bellek kullanımını engellemek için)
 		
 		
 	}
