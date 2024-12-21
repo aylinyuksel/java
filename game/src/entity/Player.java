@@ -32,12 +32,12 @@ public class Player extends Entity {
 		screenY = gp.screenHeight/2 -(gp.tileSize/2);
 		
 		solidArea = new Rectangle();
-		solidArea.x = 8; //solid area nın başlangıç köşesi
+		solidArea.x = 16; //solid area nın başlangıç köşesi
 		solidArea.y = 16;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
-		solidArea.width = 32;
-		solidArea.height = 32;
+		solidArea.width = 16;
+		solidArea.height = 16;
 		
 		
 		setDefaultValues();
@@ -120,6 +120,8 @@ public class Player extends Entity {
 			//CHECK EVENT
 			gp.eHandler.checkEvent();  
 			
+			gp.keyH.enterPressed=false;
+			
 			//if collision is false player cant move
 			if (collisionOn == false) {
 				
@@ -168,8 +170,7 @@ public class Player extends Entity {
 				gp.gameState=gp.dialogueState;
 				gp.npc[i].speak();
 			}
-		}
-		gp.keyH.enterPressed=false;
+		}		
 	}
 	public void draw(Graphics2D g2) {
 		
