@@ -41,6 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public CollisionChecker collisionC = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this); 
 	public UI ui = new UI(this);
+	public EventHandler eHandler = new EventHandler(this);
 	Thread gameThread;
 	//Thread, çoklu işlemler gerçekleştirmek için kullanılan  bir sınıf
 	//oyunlarda bir tarafta oyun mantığını işleyen döngü çalışırken
