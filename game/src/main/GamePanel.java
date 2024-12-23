@@ -126,22 +126,30 @@ public class GamePanel extends JPanel implements Runnable {
 
 	}
 	
-	public void update() { 
-		if(gameState==playState) {
-			//Player
-			player.update();
-			//npc
-			for(int i=0;i<npc.length;i++) {
-				if(npc[i]!=null) {
-					npc[i].update();
-				}
-			}
-			for(int i=0;i<monster.length;i++) {
-				if(monster[i]!=null) {
-					monster[i].update();
-				}
-		}
-	}
+	public void update() {
+
+	    if(gameState == playState) {
+	        // PLAYER
+	        player.update();
+
+	        // NPC
+	        for(int i = 0; i < npc.length; i++) {
+	            if(npc[i] != null) {
+	                npc[i].update();
+	            }
+	        }
+
+	        for(int i = 0; i < monster.length; i++) {
+	            if(monster[i] != null) {
+	                if(monster[i].alive == true && monster[i].dying==false) {
+	                    monster[i].update();
+	                }
+	                if(monster[i].alive == false) {
+	                    monster[i]=null;
+	                }
+	            }
+	        }
+	    }
 		if(gameState==pauseState) {
 			//nothing
 		}

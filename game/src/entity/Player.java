@@ -246,7 +246,8 @@ public class Player extends Entity {
 	           gp.npc[i].speak();
 	        }
 	        else {	            
-	                attacking = true;	            
+	                attacking = true;
+	                //gp.playSE(7); daha eklemedik bunu asssetlerde yok bulamadim eklenecek kalsin
 	        }
 	    }
 	}
@@ -254,6 +255,7 @@ public class Player extends Entity {
 	public void contactMonster(int i) {
 		if(i!=999) {
 			if(invincible == false) { //monster canli iken bize dokunursa canimiz azalir.
+				gp.playSE(6);
 				life -= 1;             
 				invincible = true;
 			}
@@ -265,12 +267,14 @@ public class Player extends Entity {
 	    if(i != 999) {
 
 	        if(gp.monster[i].invincible == false) {
+	        	gp.playSE(5); //sound efekti
 
 	            gp.monster[i].life -= 1;
 	            gp.monster[i].invincible = true;
+	            gp.monster[i].damageReaction();
 
 	            if(gp.monster[i].life <= 0) {
-	                gp.monster[i] = null;
+	                gp.monster[i].dying = true;
 	            }
 	        }
 	    }

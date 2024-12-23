@@ -14,7 +14,7 @@ public class MON_GreenSlime extends Entity{
 		type =2; //type kismini entity classinda belirttik 
 		name = "Green Slime";
 		speed =1;
-		maxLife =4;
+		maxLife =20;
 		life = maxLife;
 		solidArea.x =3;
 		solidArea.y =18;
@@ -55,23 +55,14 @@ public class MON_GreenSlime extends Entity{
 				actionLockCounter=0;
 			   }	
 	 }
-
-
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+	 public void damageReaction(){
+		 actionLockCounter = 0;
+		 direction = gp.player.direction;
+	 }
 }
+
+	 
+	 
+	 
+	 
+	
