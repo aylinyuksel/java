@@ -1,27 +1,25 @@
 package object;
-
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
+import entity.Entity;
 
 import main.GamePanel;
 
-public class OBJ_Door extends SuperObject {
+public class OBJ_Door extends Entity {
 	
-	GamePanel gp;
+	
 	
 	public OBJ_Door(GamePanel gp) {
 		
-		this.gp = gp;
+		super(gp); //GamePanel referansini aliyor.
 		name = "Door";
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/objects/door.png"));
-			uTool.scaledImage(image, gp.tileSize, gp.tileSize);	
-		}catch(IOException e) {
-			
-			e.printStackTrace ();
-		}
+		down1 = setup("/objects/door", gp.tileSize, gp.tileSize); //grafik dosyasi 
+		collision = true;  //Kapinin carpisma algilamasini aktif ettik.
+		solidArea.x = 0; //X konumu
+		solidArea.y = 16; // Y konumu
+		solidArea.width =48; // carpma genisligi
+		solidArea.height =32; //carpma yuksekligi
+		solidAreaDefaultX = solidArea.x;  //Carpisma alaninin varsayilan X degeri kaydedildi
+		solidAreaDefaultY = solidArea.y;  //Carpisma alaninin varsayilan Y degeri kaydedildi
 		
-		collision = true;
+		
 	}
 }

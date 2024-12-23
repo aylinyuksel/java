@@ -105,6 +105,7 @@ public class EventHandler {
 			gp.gameState = gameState;
 			gp.ui.currentDialogue = " You drink the water. \n Your life has been recovered.";
 			gp.player.life = gp.player.maxLife;
+			
 		}
 		
 	}

@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.JPanel;
 
 import entity.Entity;
 import entity.Player;
-import object.SuperObject;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -32,13 +34,15 @@ public class GamePanel extends JPanel implements Runnable {
 	//public final int worldWidth = tileSize * maxScreenCol;
 	//public final int worldHeight = tileSize * maxScreenRow;
 	
+	//FPS
+	int FPS=60;
 	
 	//SYSTEM
 	public KeyHandler keyH = new KeyHandler(this);
 	TileManager tileM = new TileManager(this);
 	Sound music = new Sound(); 
 	Sound se = new Sound();
-	public CollisionChecker collisionC = new CollisionChecker(this);
+	public CollisionChecker cChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this); 
 	public UI ui = new UI(this);
 	public EventHandler eHandler = new EventHandler(this);
@@ -53,15 +57,17 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	//ENTITY AND OBJECTS
 	public Player player = new Player(this, keyH);
-	public SuperObject obj[] = new SuperObject[10];  //ayni anda max 10 obj
+	public Entity obj[] = new Entity[10];  //ayni anda max 10 obj
 	public Entity npc[]=new Entity[10];
+	public Entity monster[]=new Entity[20];
+	
+	ArrayList<Entity> entityList = new ArrayList<>(); //Oyundaki tüm NPC'ler ve nesneler bu listeye eklendi. 
 	
 	//GAME STATE
 	public int gameState;
 	public final int titleState = 0;
 	public final int playState=1;
 	public final int pauseState=2;
-	public CollisionChecker cChecker;
 	public final int dialogueState=3;
 	
 	
@@ -75,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setDoubleBuffered(true); //görüntüyü daha temiz hale getirmek için 
 		this.setFocusable(true);
 		this.addKeyListener(keyH);
-		this.cChecker = new CollisionChecker(this); 
+	
 		
 	}
 	
@@ -83,6 +89,7 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		aSetter.setObject();
 		aSetter.setNPC();
+		aSetter.setMonster();
 		playMusic(0);
 		stopMusic();
 		gameState=titleState;
@@ -129,7 +136,12 @@ public class GamePanel extends JPanel implements Runnable {
 					npc[i].update();
 				}
 			}
+			for(int i=0;i<monster.length;i++) {
+				if(monster[i]!=null) {
+					monster[i].update();
+				}
 		}
+	}
 		if(gameState==pauseState) {
 			//nothing
 		}
@@ -144,14 +156,9 @@ public class GamePanel extends JPanel implements Runnable {
 		Graphics2D g2 = (Graphics2D)g; 
 		//Graphics nesnesini 2D dönüştürür
 		
-		tileM.draw(g2);
 		
-		for(int i=0; i < obj.length; i++) {
-			if(obj[i] != null)
-			{
-				obj[i].draw(g2,  this);
-			}
-		}
+		
+		
 		
 		//TITLE SCREEN
 		if(gameState == titleState) {
@@ -160,24 +167,58 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		//OTHERS
 		else {
-			//NPC
-			for(int i=0;i<npc.length;i++) {
-				if(npc[i]!=null) {
-					npc[i].draw(g2);
+			
+			 //TILE
+			tileM.draw(g2);
+			entityList.add(player);
+			
+			//add entities to the list 
+			for(int i =0;i<npc.length;i++) {  //oyundaki tum NPC ler entity arrayine eklenecek 
+				if(npc[i] != null) {
+					entityList.add(npc[i]);
 				}
 			}
-			player.draw(g2);
+			for(int i=0;i<obj.length;i++) {  
+				if(obj[i]!=null) {
+					entityList.add(obj[i]);
+				}
+			}
+			for(int i=0;i<monster.length;i++) {  
+				if(monster[i]!=null) {
+					entityList.add(monster[i]);
+				}
+			}
+			//SORT 
+			Collections.sort(entityList,new Comparator<Entity>() { //worldY degerlerini kullanip entity listesindeki tum oyun 
+																	//elemanlarinin cizim siralarini belirleyecek .
+
+				@Override
+				public int compare(Entity e1, Entity e2) {
+					int result = Integer.compare(e1.worldY, e2.worldY);
+					return result;
+				}
+				
+			});
+			
+			//DRAW ENTITIES 
+			for(int i=0;i<entityList.size();i++) {  // entitylistteki her varligin oyunda gosterilmesini saglar
+				entityList.get(i).draw(g2);
+				}
+			//Empty entity list
+			entityList.clear(); // gosterilen varliklari cikarip listeyi bosaltir dongunun saglanmasi icin gerekli.
+				
+				
 			
 			//UI
 			ui.draw(g2);
-			
-			g2.dispose(); //çizim sonrası kullanılan kaynakları bırakıır (gereksiz bellek kullanımını engellemek için)
-			
 		}
+		    g2.dispose();
+			
+			}
 		
 		
 		
-	}
+	
 	
 	public void playMusic(int i) {
 		
