@@ -14,6 +14,8 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
+import object.OBJ_Shield_Wood;
+import object.OBJ_Sword_Normal;
 
 public class Player extends Entity {
      
@@ -25,6 +27,7 @@ public class Player extends Entity {
 	//final dedik çünkü oyun boyunca pozisyonları değişmeyecek, kamera farklı yerleri gösterecek ama bu eleman hep ortada kalsın istiyoruz
 	//public int hasKey = 0;
 	int standCounter = 0;
+	public boolean attackCanceled = false;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		super(gp);
@@ -62,9 +65,28 @@ public class Player extends Entity {
 		direction = "down"; //herhangi bir direction verebilirim
 		
 		//player status
-		
+		level = 1;
 		maxLife = 6; //her can yarım kalp 6 can = 3 kalp 
 		life = maxLife;
+		strength = 1; // the more strenght he has the more demage he gives
+		dexterity = 1; //the more dexterity he has the less demage he decevies
+		exp = 0;
+		nextLevelExp = 5; // bir sonraki levele geçmesi için gerekli olan deneyim sayisi
+		coin = 0;
+		currentWeapon = new OBJ_Sword_Normal(gp);
+		currentShield = new OBJ_Shield_Wood(gp);
+		attack = getAttack(); // the total attack value is deceived by strenght and weapon
+		defense = getDefense(); // the total defense value is decided by dexterity and shield
+		  
+	}
+	
+	public int getAttack() {
+		return attack = strength * currentWeapon.attackValue;
+	}
+	
+	public int getDefense() {
+		return defense = dexterity * currentShield.defenseValue;
+		
 	}
 	
 	public void getPlayerImage() {
@@ -155,6 +177,14 @@ public class Player extends Entity {
 				
 				
 			}
+			
+			if(keyH.enterPressed == true && attackCanceled == false) {
+				
+				//gp.playSE(7); buradaki sesi ekleyince tüm oyun kasıyo eklenmedi sanırım?
+				attacking = true;
+				spriteCounter = 0;
+			}
+			attackCanceled = false;
 			gp.keyH.enterPressed=false;
 			
 			spriteCounter++; //anlamadim tam bi daha bak
@@ -241,14 +271,17 @@ public class Player extends Entity {
 	public void interactNPC(int i) {
 
 	    if(gp.keyH.enterPressed == true) {
-	        if(i != 999) {	            
+	        if(i != 999) {
+	           attackCanceled = true;
 	           gp.gameState = gp.dialogueState;
 	           gp.npc[i].speak();
 	        }
-	        else {	            
+	        
+	        
+	        /*else {	            
 	                attacking = true;
 	                //gp.playSE(7); daha eklemedik bunu asssetlerde yok bulamadim eklenecek kalsin
-	        }
+	        }*/
 	    }
 	}
 
