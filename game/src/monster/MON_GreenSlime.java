@@ -7,21 +7,31 @@ import entity.Entity;
 import main.GamePanel;
 
 public class MON_GreenSlime extends Entity{
+	
 	GamePanel gp;
+	
 	public MON_GreenSlime(GamePanel gp) {
 		super(gp);
+		
 		this.gp =gp;
+		
 		type =2; //type kismini entity classinda belirttik 
 		name = "Green Slime";
 		speed =1;
 		maxLife =20;
 		life = maxLife;
+		attack = 5;
+		defense =0;
+		exp = 2;
+		 
+		
 		solidArea.x =3;
 		solidArea.y =18;
 		solidArea.width =42;
 		solidArea.height =30;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY =solidArea.y;	
+		
 		getImage();
 	}
 	public void getImage() {

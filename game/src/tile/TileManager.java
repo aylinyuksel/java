@@ -24,7 +24,7 @@ public class TileManager {
 		
 		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		getTileImage();
-		loadMap();
+		loadMap("/maps/world01.txt");
 		
 	}
 	
@@ -53,7 +53,7 @@ public class TileManager {
 		}
 	}
 	
-	public void loadMap() {
+	public void loadMap(String str) {
 		
 		try {
 			//burası text fileı okuması için olan bir format

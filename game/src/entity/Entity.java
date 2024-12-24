@@ -69,7 +69,9 @@ public class Entity {
 
 	public Entity(GamePanel gp) {
 		this.gp=gp;
+		
 	}
+	
 	public void setAction() {}
 	public void damageReaction() {}
 	
@@ -110,7 +112,13 @@ public class Entity {
 		    if (gp.player.invincible == false) {
 		        // we can give damage
 		    	gp.playSE(6);
-		        gp.player.life -= 1;
+		    	int demage =  attack - gp.player.defense;
+				
+	        	if (demage < 0) {
+	        		demage = 0;
+	        	}
+	        	
+				gp.player.life -= demage;  
 		        gp.player.invincible = true;
 		    }
 		}

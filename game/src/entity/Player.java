@@ -288,29 +288,70 @@ public class Player extends Entity {
 	public void contactMonster(int i) {
 		if(i!=999) {
 			if(invincible == false) { //monster canli iken bize dokunursa canimiz azalir.
+				
 				gp.playSE(6);
-				life -= 1;             
+				
+				int demage =  gp.monster[i].attack - defense;
+				
+	        	if (demage < 0) {
+	        		demage = 0;
+	        	}
+	        	
+				life -= demage;             
 				invincible = true;
 			}
 		}
 		
 	}
-	public void damageMonster(int i) { //monster 4 kere vurunca olecek bu kod ile
+	public void damageMonster(int i) { 
 
 	    if(i != 999) {
 
 	        if(gp.monster[i].invincible == false) {
+	        	
 	        	gp.playSE(5); //sound efekti
 
-	            gp.monster[i].life -= 1;
+	        	
+	        	int demage = attack - gp.monster[i].defense;
+	        	if (demage < 0) {
+	        		demage = 0;
+	        	}
+	        	
+	        	
+	            gp.monster[i].life -= demage;
+	            gp.ui.addMessage(demage + " demage!");
+	            
 	            gp.monster[i].invincible = true;
 	            gp.monster[i].damageReaction();
 
 	            if(gp.monster[i].life <= 0) {
 	                gp.monster[i].dying = true;
+	                gp.ui.addMessage("killed the " + gp.monster[i].name +"!");
+	                gp.ui.addMessage("Exp + " + gp.monster[i].exp);
+	                exp += gp.monster[i].exp;
+	                checkLevelUp();
 	            }
 	        }
 	    }
+	}
+	
+	public void checkLevelUp() {
+		
+		if(exp >= nextLevelExp) {
+			
+			level++;
+			nextLevelExp = nextLevelExp*2;
+			maxLife += 2;
+			strength++;
+			dexterity++;
+			attack = getAttack();
+			defense = getDefense();
+			
+			gp.playSE(8);
+			gp.gameState = gp.dialogueState;
+			gp.ui.currentDialogue = "You are level " + level + " now!\n" + "You feel stronger!";
+			
+		}
 	}
 
 	public void draw(Graphics2D g2) {
