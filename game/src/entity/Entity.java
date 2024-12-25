@@ -41,16 +41,18 @@ public class Entity {
     public int spriteCounter = 0;
     public int actionLockCounter = 0;
     public int invincibleCounter = 0;
+    public int shotAvailableCounter = 0;
     int dyingCounter = 0;
     int hpBarCounter = 0;
  
 
     // CHARACTER ATTRIBUTES
-    public int type; // 0 = player, 1 = npc, 2 = monster
     public String name;
     public int speed;
     public int maxLife;
     public int life;
+    public int maxMana;
+    public int mana;
     public int level;
     public int strength;
     public int dexterity;
@@ -61,13 +63,26 @@ public class Entity {
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Projectile projectile;
 
     
     //ITEM ATTRIBUTES
     public int attackValue;
     public int defenseValue;
+    public String description = "";
+    public int useCost;
 
-	public Entity(GamePanel gp) {
+    //TYPE 
+    public int type; // 0 = player, 1 = npc, 2 = monster
+	public final int type_player = 0;
+	public final int type_nps = 1;
+	public final int type_monster = 2;
+	public final int type_sword = 3;
+	public final int type_axe = 4;
+	public final int type_shield = 5;
+	public final int type_consumable = 6;
+    
+    public Entity(GamePanel gp) {
 		this.gp=gp;
 		
 	}
@@ -90,13 +105,15 @@ public class Entity {
 			direction="up";
 			break;
 		case "left":
-			direction="left";
+			direction="right";
 			break;
 		case "right":
-			direction="right";
+			direction="left";
 			break;
 		}
 	   }
+	
+	public void use(Entity entity) {}
 	
 	public void update() {
 		setAction();
@@ -108,19 +125,9 @@ public class Entity {
 		gp.cChecker.checkEntity(this,gp.monster); 
 		boolean contactPlayer = gp.cChecker.checkPlayer(this); 
 		
-		if (this.type == 2 && contactPlayer == true) {
-		    if (gp.player.invincible == false) {
-		        // we can give damage
-		    	gp.playSE(6);
-		    	int demage =  attack - gp.player.defense;
-				
-	        	if (demage < 0) {
-	        		demage = 0;
-	        	}
-	        	
-				gp.player.life -= demage;  
-		        gp.player.invincible = true;
-		    }
+		if (this.type == type_monster && contactPlayer == true) {
+			
+			damagePlayer(attack);
 		}
 
 		
@@ -150,7 +157,27 @@ public class Entity {
 				invincibleCounter=0; //counter sifirlandi 
 			}
 		}
+		if(shotAvailableCounter < 30) { // u cant shoot another fire until 30 frames
+			shotAvailableCounter++;
+		}
 	}
+	public void damagePlayer(int attack) {
+		
+		 if (gp.player.invincible == false) {
+		        // we can give damage
+		    	gp.playSE(6);
+		    	int demage =  attack - gp.player.defense;
+				
+	        	if (demage < 0) {
+	        		demage = 0;
+	        	}
+	        	
+				gp.player.life -= demage;  
+		        gp.player.invincible = true;
+		    }
+		}
+	
+	
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
 		int screenX = worldX - gp.player.worldX +gp.player.screenX;
@@ -218,6 +245,7 @@ public class Entity {
 			changeAlpha(g2, 1F);
 		}
 	}
+	
 	public void dyingAnimation(Graphics2D g2) {
 
 	    dyingCounter++;
@@ -233,12 +261,10 @@ public class Entity {
 	    if(dyingCounter > i*6 && dyingCounter <= i*7) {changeAlpha(g2, 0f);}
 	    if(dyingCounter > i*7 && dyingCounter <= i*8) {changeAlpha(g2, 1f);}
 	    if(dyingCounter > i*8) {
-	        dying = false;
 	        alive = false;
 	    }
 
 	  }
-	
 
 	public void changeAlpha(Graphics2D g2, float alphaValue) {
 	    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));

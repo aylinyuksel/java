@@ -1,7 +1,6 @@
-/entity/
-/monster/
 /object/
+/entity/
 /main/
+/projectile/
 /sound/
-/tile/
-/maps/
+/monster/
