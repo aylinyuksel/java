@@ -17,6 +17,7 @@ import main.KeyHandler;
 import main.UtilityTool;
 import object.OBJ_Fireball;
 import object.OBJ_Key;
+import object.OBJ_Rock;
 import object.OBJ_Shield_Wood;
 import object.OBJ_Sword_Normal;
 
@@ -74,6 +75,9 @@ public class Player extends Entity {
 		level = 1;
 		maxLife = 6; //her can yarım kalp 6 can = 3 kalp 
 		life = maxLife;
+		maxMana = 4;
+		mana = maxMana;
+		ammo = 10;
 		strength = 1; // the more strenght he has the more demage he gives
 		dexterity = 1; //the more dexterity he has the less demage he decevies
 		exp = 0;
@@ -82,6 +86,7 @@ public class Player extends Entity {
 		currentWeapon = new OBJ_Sword_Normal(gp);
 		currentShield = new OBJ_Shield_Wood(gp);
 		projectile = new OBJ_Fireball(gp);
+		//projectile = new OBJ_Rock(gp);
 		attack = getAttack(); // the total attack value is deceived by strenght and weapon
 		defense = getDefense(); // the total defense value is decided by dexterity and shield
 		  
@@ -187,6 +192,8 @@ public class Player extends Entity {
 			//CHECK MONSTER COLLISION
 			int monsterIndex=gp.cChecker.checkEntity(this,gp.monster);
 			contactMonster(monsterIndex);
+			//CHECK INTERACTIVE TILE COLLISION
+			int iTileIndex=gp.cChecker.checkEntity(this,gp.iTile);
 			
 			
 			//CHECK EVENT
@@ -238,10 +245,14 @@ public class Player extends Entity {
 			}
 		}
 		
-		if(gp.keyH.shotKeyPressed == true && projectile.alive == false && shotAvailableCounter ==30){
+		if(gp.keyH.shotKeyPressed == true && projectile.alive == false 
+				&& shotAvailableCounter ==30 && projectile.haveResource(this) == true){
 			
 			//SETTING DEFAULT COORDINATES DIRECTIONS AND USERS
 			projectile.set(worldX, worldY, direction, true, this);
+			
+			//SUBTRACT THE COST (MANA, AMMO, ETC.)
+			projectile.subtractResource(this);
 			
 			//ADD TO LIST
 			gp.projectileList.add(projectile);
@@ -260,6 +271,14 @@ public class Player extends Entity {
 		
 		if(shotAvailableCounter < 30) { // u cant shoot another fire until 30 frames
 			shotAvailableCounter++;
+		}
+		
+		if(life > maxLife) {
+			life = maxLife;
+		}
+		
+		if(mana > maxMana) {
+			mana = maxMana;
 		}
 	}
 	
@@ -290,6 +309,9 @@ public class Player extends Entity {
 	        int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);//bu kod ile monster ile etkilesime gecebilecegiz.
 	        damageMonster(monsterIndex, attack);
 	        
+	        int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+	        damageInteractiveTile(iTileIndex);
+	        
 	        // After checking collision, restore the original data
 	        worldX = currentWorldX; //monsterin sadece silah ile etkilesime girmesi icin yukaridaki kod ile alani ayarladiktan sonra yeni data olarak guncelledik bu degistirlen degerleri
 	        worldY = currentWorldY;
@@ -311,19 +333,31 @@ public class Player extends Entity {
 		
 		if(i != 999) {
 			
-			String text;
-			
-			if (inventory.size() != maxInventorySize) {
+			//PICKUP ONLY ITEMS
+			if(gp.obj[i].type == type_pickupOnly) {
 				
-				inventory.add(gp.obj[i]);
-				gp.playSE(1);
-				text = "Got a " + gp.obj[i].name + "!";
+				gp.obj[i].use(this);
+				gp.obj[i] = null;
 			}
+			
+			//INVENTORY ITEMS
 			else {
-				text = "You cannot carry any more";
+
+				String text;
+				
+				if (inventory.size() != maxInventorySize) {
+					
+					inventory.add(gp.obj[i]);
+					gp.playSE(1);
+					text = "Got a " + gp.obj[i].name + "!";
+				}
+				else {
+					text = "You cannot carry any more";
+				}
+				gp.ui.addMessage(text);
+				gp.obj[i] = null;
 			}
-			gp.ui.addMessage(text);
-			gp.obj[i] = null;
+			
 		}
 	}
 	
@@ -394,7 +428,11 @@ public class Player extends Entity {
 	        }
 	    }
 	}
-	
+	public void damageInteractiveTile(int i) {
+		if(i != 999 && gp.iTile[i].destructible == true && gp.iTile[i].isCorrectItem(this)) {
+			gp.iTile[i] = null;
+		}
+	}
 	public void checkLevelUp() {
 		
 		if(exp >= nextLevelExp) {

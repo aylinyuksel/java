@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
+import tile_interactive.InteractiveTile;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -58,10 +59,10 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	//ENTITY AND OBJECTS
 	public Player player = new Player(this, keyH);
-	public Entity obj[] = new Entity[10];  //ayni anda max 10 obj
+	public Entity obj[] = new Entity[20];  //ayni anda max 10 obj
 	public Entity npc[]=new Entity[10];
 	public Entity monster[]=new Entity[20];
-	
+	public InteractiveTile iTile[] = new InteractiveTile[50];
 	public ArrayList<Entity> projectileList = new ArrayList<>();
 	ArrayList<Entity> entityList = new ArrayList<>(); //Oyundaki tüm NPC'ler ve nesneler bu listeye eklendi. 
 	
@@ -94,7 +95,8 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.setObject();
 		aSetter.setNPC();
 		aSetter.setMonster();
-		playMusic(0);
+		aSetter.setInteractiveTile();
+		playMusic(4);
 		stopMusic();
 		gameState=titleState;
 	}
@@ -150,6 +152,7 @@ public class GamePanel extends JPanel implements Runnable {
 	                    monster[i].update();
 	                }
 	                if(monster[i].alive == false) {
+	                	monster[i].checkDrop();
 	                    monster[i]=null;
 	                }
 	            }
@@ -166,6 +169,12 @@ public class GamePanel extends JPanel implements Runnable {
 	                }
 	            }
 	        }
+	        for(int i = 0; i < iTile.length; i++) {
+	        	if(iTile[i] != null) {
+	        		iTile[i].update();
+	        	}
+	        }
+	        
 	    }
 		if(gameState==pauseState) {
 			//nothing
@@ -201,6 +210,13 @@ public class GamePanel extends JPanel implements Runnable {
 			 //TILE
 			tileM.draw(g2);
 			entityList.add(player);
+			
+			//INTERACTIVE TILE
+			for(int i = 0; i < iTile.length; i++) {
+				if(iTile[i] != null) {
+					iTile[i].draw(g2);
+				}
+			}
 			
 			//add entities to the list 
 			for(int i =0;i<npc.length;i++) {  //oyundaki tum NPC ler entity arrayine eklenecek 
