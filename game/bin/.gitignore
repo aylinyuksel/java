@@ -1,8 +1,5 @@
-/objects/
-/entity/
-/main/
-/object/
-/monster/
-/tiles_interactive/
 /tile_interactive/
-/maps/
+/sound/
+/main/
+/entity/
+/tile/
