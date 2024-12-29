@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable {
 	final int scale = 3;
 	
 	public final int tileSize = originalTileSize * scale; //48*48 tile -- farklı packagedan erişim sağladığım için public yapmam gerekti
-	public final int maxScreenCol = 16;
+	public final int maxScreenCol = 20;
 	public final int maxScreenRow = 12;
 	public final int screenWidth = tileSize * maxScreenCol; //768 pixelo
 	public final int screenHeight = tileSize * maxScreenRow; //576 pixelo
@@ -319,7 +319,10 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	
 	public void playMusic(int i) {
-		
+		if (music.clip != null && music.clip.isRunning()) {
+	        // Eğer müzik çalıyorsa, bir şey yapma
+	        return;
+	    }
 		music.setFile(i);
 		music.play();
 		music.loop();

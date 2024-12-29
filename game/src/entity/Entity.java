@@ -95,27 +95,40 @@ public class Entity {
 	public void damageReaction() {}
 	
 	public void speak() {
-		if(dialogues[dialogueIndex]==null) {
-			dialogueIndex=0;
-		}
-		gp.ui.currentDialogue=dialogues[dialogueIndex];
-		dialogueIndex++;
-		
-		switch(gp.player.direction) {
-		case "up":
-			direction="down";
-			break;
-		case "down":
-			direction="up";
-			break;
-		case "left":
-			direction="right";
-			break;
-		case "right":
-			direction="left";
-			break;
-		}
-	   }
+	    // Tüm diyaloglar bittiyse sıfırla ve playState'e dön
+	    if (dialogueIndex >= dialogues.length || dialogues[dialogueIndex] == null) {
+	        dialogueIndex = 0;
+	        gp.gameState = gp.playState; // Diyalog sona erdiğinde oyun durumunu playState'e döndür
+	        return; // Metottan çık
+	    }
+
+	    // Geçerli diyalogu ayarla
+	    gp.ui.currentDialogue = dialogues[dialogueIndex];
+
+	    // Oyuncunun yüz yönünü değiştir
+	    switch (gp.player.direction) {
+	        case "up":
+	            direction = "down";
+	            break;
+	        case "down":
+	            direction = "up";
+	            break;
+	        case "left":
+	            direction = "right";
+	            break;
+	        case "right":
+	            direction = "left";
+	            break;
+	    }
+
+	    // Bir sonraki diyaloğa geçmek için index artır
+	    dialogueIndex++;
+
+	   
+	    
+	}
+
+
 	
 	public void use(Entity entity) {}
 	public void checkDrop() {}
@@ -157,10 +170,10 @@ public class Entity {
 		int speed = generator.getParticleSpeed();
 		int maxLife = generator.getParticleMaxLife();
 		
-		Particle p1 = new Particle(gp, generator, color, size, speed, maxLife, -2, -1);
-		Particle p2 = new Particle(gp, generator, color, size, speed, maxLife, 2, -1);
-		Particle p3 = new Particle(gp, generator, color, size, speed, maxLife, -2, 1);
-		Particle p4 = new Particle(gp, generator, color, size, speed, maxLife, 2, 1);
+		Particle p1 = new Particle(gp, target, color, size, speed, maxLife, -2, -1);
+		Particle p2 = new Particle(gp, target, color, size, speed, maxLife, 2, -1);
+		Particle p3 = new Particle(gp, target, color, size, speed, maxLife, -2, 1);
+		Particle p4 = new Particle(gp, target, color, size, speed, maxLife, 2, 1);
 		gp.particleList.add(p1);
 		gp.particleList.add(p2);
 		gp.particleList.add(p3);
