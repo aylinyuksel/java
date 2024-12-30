@@ -37,6 +37,7 @@ public class Player extends Entity {
 	public final int maxInventorySize = 20;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
+		
 		super(gp);
 		
 		this.keyH = keyH;
