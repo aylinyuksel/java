@@ -81,7 +81,8 @@ public class EventHandler{
             else if(hit(2,8,7, "any") == true) {teleport(3,26,41,gp.dungeon);} //to B2
             else if(hit(3,26,41, "any") == true) {teleport(2,8,7,gp.dungeon);} //to B1
             else if(hit(3,25,27, "any") == true) {skeletonLord();} //BOSS
-
+            else if(hit(4,24,15, "any") == true) {teleport(0,23,21,gp.outside);}
+            
         }
 
     }

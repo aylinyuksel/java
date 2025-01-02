@@ -105,33 +105,7 @@ public class Lighting {
                 dayCounter = 0;
             }
         }
-        if(dayState == dusk)
-        {
-            filterAlpha += 0.0005f;   //0.0005f x 2000 = 1f, 2000/60 = 32 seconds
-            if(filterAlpha > 1f)
-            {
-                filterAlpha = 1f;
-                dayState = night;
-            }
-        }
-        if(dayState == night)
-        {
-            dayCounter++;
-            if(dayCounter > 3600) //1 min night
-            {
-                dayState = dawn;
-                dayCounter = 0;
-            }
-        }
-        if(dayState == dawn)
-        {
-            filterAlpha -= 0.0005f;   //0.0005f x 2000 = 1f, 2000/60 = 32 seconds
-            if(filterAlpha < 0)
-            {
-                filterAlpha = 0;
-                dayState = day;
-            }
-        }
+       
     }
     public void draw(Graphics2D g2)
     {
@@ -149,10 +123,8 @@ public class Lighting {
         String situation = "";
         switch (dayState)
         {
-            case day: situation = "Day"; break;
-            case dusk: situation = "Dusk"; break;
-            case night: situation = "Night"; break;
-            case dawn: situation = "Dawn"; break;
+            
+            
         }
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(50f));

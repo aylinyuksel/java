@@ -43,9 +43,9 @@ public class Player extends Entity{
     public void setDefaultValues()
     {
         //Default Starting Positions
-        worldX = gp.tileSize * 23;
-        worldY = gp.tileSize * 21;
-        gp.currentMap = 0;
+        worldX = gp.tileSize * 24;
+        worldY = gp.tileSize * 36;
+        gp.currentMap = 4;
         gp.currentArea = gp.outside;
 
         //Blue Gem Start Position, mapNum = 3;
@@ -601,7 +601,7 @@ public class Player extends Entity{
              defense = getDefense();
              gp.playSE(8); //levelup.wav
 
-             dialogues[0][0] = "You are level " + level + " now!\n" + "You feel stronger!";
+             dialogues[0][0] = "Your character is level " + level + " now!\n";
              setDialogue();
              startDialogue(this,0);
          }
