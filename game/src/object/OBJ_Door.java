@@ -1,25 +1,39 @@
 package object;
-import entity.Entity;
 
+import entity.Entity;
 import main.GamePanel;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
+
 public class OBJ_Door extends Entity {
-	
-	
-	
-	public OBJ_Door(GamePanel gp) {
-		
-		super(gp); //GamePanel referansini aliyor.
-		name = "Door";
-		down1 = setup("/objects/door", gp.tileSize, gp.tileSize); //grafik dosyasi 
-		collision = true;  //Kapinin carpisma algilamasini aktif ettik.
-		solidArea.x = 0; //X konumu
-		solidArea.y = 16; // Y konumu
-		solidArea.width =48; // carpma genisligi
-		solidArea.height =32; //carpma yuksekligi
-		solidAreaDefaultX = solidArea.x;  //Carpisma alaninin varsayilan X degeri kaydedildi
-		solidAreaDefaultY = solidArea.y;  //Carpisma alaninin varsayilan Y degeri kaydedildi
-		
-		
-	}
+
+    GamePanel gp;
+    public static final String objName = "Door";
+
+    public OBJ_Door(GamePanel gp)
+    {
+        super(gp);
+        this.gp = gp;
+        type = type_obstacle;
+        name = objName;
+        down1 = setup("/objects/door",gp.tileSize,gp.tileSize);
+        collision = true;
+
+        solidArea.x = 0;
+        solidArea.y = 16;
+        solidArea.width = 48;
+        solidArea.height = 32;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        price = 35;
+        setDialogue();
+    }
+    public void setDialogue()
+    {
+        dialogues[0][0] = "You need a key to open this.";
+    }
+    public void interact() {
+        startDialogue(this,0);
+    }
 }
