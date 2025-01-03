@@ -76,12 +76,15 @@ public class EventHandler{
             else if(hit(1,12,13, "any") == true) {teleport(0,10,39,gp.outside);} //to outside
             else if(hit(1,12,9, "up") == true) {speak(gp.npc[1][0]);} //merchant
 
-            else if(hit(0,12,9, "any") == true) {teleport(2,9,41,gp.dungeon);} //to the dungeon
+            else if(hit(0,12,9, "any") == true) {teleport(5,40,26,gp.dungeonnew);} //to the dungeon
             else if(hit(2,9,41, "any") == true) {teleport(0,12,9,gp.outside);} //to outside
             else if(hit(2,8,7, "any") == true) {teleport(3,26,41,gp.dungeon);} //to B2
             else if(hit(3,26,41, "any") == true) {teleport(2,8,7,gp.dungeon);} //to B1
             else if(hit(3,25,27, "any") == true) {skeletonLord();} //BOSS
             else if(hit(4,24,15, "any") == true) {teleport(0,23,21,gp.outside);}
+            else if(hit(5,39,29, "any") == true) {teleport(2,9,41,gp.dungeon);}
+            
+            
             
         }
 
