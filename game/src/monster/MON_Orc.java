@@ -18,11 +18,11 @@ public class MON_Orc extends Entity {
 
         type = type_monster;
         name = "Orc";
-        defaultSpeed = 1;
+        defaultSpeed = 3;
         speed = defaultSpeed;
         maxLife = 8;
         life = maxLife;
-        attack = 8;
+        attack = 6;
         defense = 2;
         exp = 8;
         knockBackPower = 5;
