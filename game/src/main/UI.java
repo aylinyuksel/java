@@ -786,7 +786,7 @@ public class UI {
 
             //TITLE NAME
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
-            String text = "Blue Boy Adventure\n";
+            String text = "Dungeon Break\n";
             int x = getXforCenteredText(text);
             int y = gp.tileSize * 3;
             //SHADOW
@@ -832,7 +832,7 @@ public class UI {
             }
         }
         //SECOND SCREEN
-        else if(titleScreenState == 1)
+        /*else if(titleScreenState == 1)
         {
 
             //CLASS SELECTION SCREEN
@@ -879,7 +879,7 @@ public class UI {
             {
                 g2.drawString(">",x-gp.tileSize,y);
             }
-        }
+        }*/
     }
     public void drawGameOverScreen()
     {

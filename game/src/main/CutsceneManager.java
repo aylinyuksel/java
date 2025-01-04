@@ -30,13 +30,7 @@ public class CutsceneManager {
     {
         this.gp = gp;
         endCredit = "Developed by\n"
-                + "Berkayw"
-                + "\n\n\n\n\n\n\n\n\n\n\n"
-                + "Special Thanks\n\n"
-                + "Alperen Aksu\n"
-                + "Ryi Snow\n\n"
-                + "Check his tutorials from RyiSnow YouTube Channel!\n"
-                + "\n\n\n\n\n\n\n"
+                + "Aylin Yuksel\nAysha Mallamahmoud\nAli Bugra Tekin\nFeyza Tiryaki\nHazar Dardagan\n"
                 + "Thank you for playing!";
     }
     public void draw(Graphics2D g2)
@@ -220,7 +214,7 @@ public class CutsceneManager {
 
             alpha = graduallyAlpha(alpha, 0.01f);
 
-            drawString(alpha,120f, gp.screenHeight/2, "Blue Boy Adventure", 40);
+            drawString(alpha,120f, gp.screenHeight/2, "Dungeon Break", 40);
 
             if(counterReached(480) == true && alpha == 1f)
             {

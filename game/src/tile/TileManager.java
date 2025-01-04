@@ -69,13 +69,13 @@ public class TileManager  {
         }
 
 
-        loadMap("/maps/worldmap.txt",0); // To change maps easily.
-        loadMap("/maps/indoor01.txt",1);
-        loadMap("/maps/dungeon01.txt",2);
-        loadMap("/maps/dungeon02.txt",3);
-        loadMap("/maps/level1.txt", 4);
-        loadMap("/maps/dungeonnew.txt",5);
-        loadMap("/maps/finalscence.txt",6);
+        loadMap("/maps/worldmap.txt",0); // 2
+        loadMap("/maps/indoor01.txt",1);//
+        loadMap("/maps/dungeon01.txt",2);//4
+        loadMap("/maps/dungeon02.txt",3);//5
+        loadMap("/maps/level1.txt", 4);//1
+        loadMap("/maps/dungeonnew.txt",5);//3
+        loadMap("/maps/finalscence.txt",6);//6
     }
     public void getTileImage()
     {

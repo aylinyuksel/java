@@ -93,7 +93,7 @@ public class Player extends Entity{
     }
     public void setDialogue()
     {
-        dialogues[0][0] = "You are level " + level + " now!\n" + "You feel stronger!";
+        dialogues[0][0] = "Your character is level " + level + " now!\n";
     }
     public void restoreStatus()
     {
