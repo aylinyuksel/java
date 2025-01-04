@@ -113,7 +113,7 @@ public class Lighting {
         {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,filterAlpha)); //only change alpha when outside
         }
-        if(gp.currentArea == gp.outside || gp.currentArea == gp.dungeon)
+        if(gp.currentArea == gp.outside || gp.currentArea == gp.dungeon || gp.currentArea == gp.dungeonnew)
         {
             g2.drawImage(darknessFilter,0,0,null);  //draw darkness filter outside or dungeon. alpha = 1f;
         }
