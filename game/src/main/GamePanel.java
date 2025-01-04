@@ -97,8 +97,8 @@ public class GamePanel extends JPanel implements Runnable{
     public int nextArea;
     public final int outside = 50;
     public final int indoor = 51;
-    public final int dungeonnew = 52;
-    public final int dungeon = 53;
+    public final int dungeon = 52;
+    public final int dungeonnew = 53;
 
 
     public GamePanel() // constructor

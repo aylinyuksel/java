@@ -23,7 +23,7 @@ public class MON_RedSlime extends Entity {
         speed = defaultSpeed;
         maxLife = 8;
         life = maxLife;
-        attack = 4;
+        attack = 0;
         defense = 0;
         exp = 4;
         projectile = new OBJ_Rock(gp);
