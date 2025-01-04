@@ -183,10 +183,13 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize * 15;
         i++;
 
+     
+        mapNum =6;
         gp.obj[mapNum][i] = new OBJ_BlueHeart(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 25;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 8;
+        gp.obj[mapNum][i].worldX = gp.tileSize * 24;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 24;
         i++;
+        
     }
 
     public void setNPC()
@@ -223,6 +226,12 @@ public class AssetSetter {
         gp.npc[mapNum][i] = new NPC_BigRock(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize*23;
         gp.npc[mapNum][i].worldY = gp.tileSize*14;
+        i++;
+        mapNum = 6;
+        i=0;
+        gp.npc[mapNum][i] = new NPC_OldMan(gp);
+        gp.npc[mapNum][i].worldX = gp.tileSize*21;
+        gp.npc[mapNum][i].worldY = gp.tileSize*21;
         i++;
 
     }

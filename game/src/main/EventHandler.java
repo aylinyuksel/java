@@ -84,6 +84,7 @@ public class EventHandler{
             else if(hit(4,24,15, "any") == true) {teleport(0,23,21,gp.outside);}
             else if(hit(5,11,16, "any") == true) {teleport(2,10,42,gp.dungeon);}
             else if(hit(5,10,29, "any") == true) {teleport(0,12,9,gp.outside);}
+            else if(hit(3,25,15, "any") == true) {teleport(6,24,16,gp.finalscence);}
                  
         }
 

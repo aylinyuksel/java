@@ -99,6 +99,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int indoor = 51;
     public final int dungeon = 52;
     public final int dungeonnew = 53;
+    public final int finalscence = 54;
 
 
     public GamePanel() // constructor
@@ -603,6 +604,10 @@ public class GamePanel extends JPanel implements Runnable{
                 playMusic(19);
             }
             if(nextArea == dungeon)
+            {
+                playMusic(19);
+            }
+            if(nextArea == finalscence)
             {
                 playMusic(19);
             }
