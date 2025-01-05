@@ -15,13 +15,17 @@ public class SaveLoad {
         this.gp = gp;
     }
 
+    
+    //this method saves game data
     public void save()
     {
         try {
+        	
+        	//create an ObjectOutputStream to write data to a file
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File("save.dat")));
             DataStorage ds = new DataStorage();
 
-            //PLAYER STATS
+            //PLAYER STATS (saving player stats to DataStorage)
             ds.level = gp.player.level;
             ds.maxLife = gp.player.maxLife;
             ds.life = gp.player.life;
@@ -33,10 +37,13 @@ public class SaveLoad {
             ds.nextLevelExp = gp.player.nextLevelExp;
             ds.coin = gp.player.coin;
 
-            //PLAYER INVENTORY
+            //PLAYER INVENTORY (saving items in the player's inventory)
+            //iterate over each item in the player's inventory
             for(int i = 0;i < gp.player.inventory.size(); i++)
             {
+            	//add the name of the current item to the 'itemNames' list in DataStorage
                 ds.itemNames.add(gp.player.inventory.get(i).name);
+                //add the amount of the current item to the 'itemAmounts' list in DataStorage
                 ds.itemAmounts.add(gp.player.inventory.get(i).amount);
             }
 
@@ -55,11 +62,12 @@ public class SaveLoad {
             {
                 for(int i = 0; i < gp.obj[1].length; i++)
                 {
-                    if(gp.obj[mapNum][i] == null)
+                    if(gp.obj[mapNum][i] == null) 
                     {
-                        ds.mapObjectNames[mapNum][i] = "NA";
+                        ds.mapObjectNames[mapNum][i] = "NA"; //no object at this location
                     }
                     else
+                    	//save details of the objects on the map
                     {
                         ds.mapObjectNames[mapNum][i] = gp.obj[mapNum][i].name;
                         ds.mapObjectWorldX[mapNum][i] = gp.obj[mapNum][i].worldX;
@@ -73,7 +81,7 @@ public class SaveLoad {
                 }
             }
 
-            //Write the DataStorage object
+            //write the DataStorage object
             oos.writeObject(ds);
 
         } catch (Exception e) {
@@ -88,7 +96,7 @@ public class SaveLoad {
             //Read the DataStorage object
             DataStorage ds =  (DataStorage)ois.readObject();
 
-            //PLAYER STATS
+            //PLAYER STATS (loading player stats from DataStorage)
             gp.player.level = ds.level;
             gp.player.maxLife = ds.maxLife;
             gp.player.life = ds.life;
@@ -136,7 +144,7 @@ public class SaveLoad {
                         gp.obj[mapNum][i].opened = ds.mapObjectOpened[mapNum][i];
                         if(gp.obj[mapNum][i].opened == true)
                         {
-                            gp.obj[mapNum][i].down1 = gp.obj[mapNum][i].image2;
+                            gp.obj[mapNum][i].down1 = gp.obj[mapNum][i].image2; //set alternate image if opened
                         }
                         gp.obj[mapNum][i].setDialogue(); // added this line
                     }

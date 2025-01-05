@@ -14,7 +14,7 @@ public class DataStorage implements Serializable {
     int strength;
     int dexterity;
     int exp;
-    int nextLevelExp;
+    int nextLevelExp; //experience required for the next level
     int coin;
 
     //PLAYER INVENTORY
@@ -23,11 +23,11 @@ public class DataStorage implements Serializable {
     int currentWeaponSlot;
     int currentShieldSlot;
 
-    //OBJECT ON MAP
+    //OBJECT ON MAP (information about objects placed on the map)
     String mapObjectNames[][];
     int mapObjectWorldX[][];
     int mapObjectWorldY[][];
     String mapObjectLootNames[][];
-    boolean mapObjectOpened[][];
+    boolean mapObjectOpened[][]; //whether objects have been opened or not
 
 }
