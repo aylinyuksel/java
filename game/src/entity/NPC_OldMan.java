@@ -41,24 +41,19 @@ public class NPC_OldMan extends Entity{
     }
     public void setDialogue()
     {
-        dialogues[0][0] = "Hello, lad.";
-        dialogues[0][1] = "So you've come to this island to find the treasure?";
-        dialogues[0][2] = "I used to be a great wizard but now... \nI'm a bit too old for taking an adventure.";
+        dialogues[0][0] = "Congratulations, hero!";
+        dialogues[0][1] = "You have reached the end of this challenging journey.";
+        dialogues[0][2] = "Escaping from the underground wasn’t easy, but you made it.";
         dialogues[0][4] = "Well, good luck on you.";
-        dialogues[0][3] = "You can talk with me again when you're stuck.";
+        dialogues[0][3] = "This treasure is now yours—use it to live a happy life.";
 
-        dialogues[1][0] = "If you become tired, rest at the water.";
-        dialogues[1][1] = "However, the monsters reappear if you rest.\nI don't know why but that's how it works.";
-        dialogues[1][2] = "In any case, don't push yourself too hard.";
-
-        dialogues[2][0] = "I wonder how to open that door...";
+     
     }
     public void setAction()
     {
         if(onPath == true)
         {
-//            int goalCol = 12;
-//            int goalRow = 9;
+
 
             int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
             int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
@@ -95,8 +90,7 @@ public class NPC_OldMan extends Entity{
     }
     public void speak()
     {
-        //ENTITY CLASS SPEAK()
-        //Do this character specific stuff
+       
 
         facePlayer();
         startDialogue(this,dialogueSet);
@@ -104,15 +98,10 @@ public class NPC_OldMan extends Entity{
         dialogueSet++;
         if(dialogues[dialogueSet][0] == null)
         {
-            //dialogueSet = 0;
+            
             dialogueSet--; //displays last set
         }
 
-        /*if(gp.player.life < gp.player.maxLife/3)
-        {
-            dialogueSet = 1;
-        }*/
-        //follow me, come with me  or something like that
-        //onPath = true;
+      
     }
 }

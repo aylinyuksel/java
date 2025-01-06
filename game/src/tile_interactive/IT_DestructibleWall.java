@@ -62,24 +62,5 @@ public class IT_DestructibleWall extends InteractiveTile{
         int maxLife = 20;
         return maxLife;
     }
-    //for mining stuff u can use it in damageInteractiveTile in Player class
-    /*public void checkDrop()
-    {
-        //CAST A DIE
-        int i = new Random().nextInt(100)+1;
-
-        //SET THE TILE DROP
-        if(i < 50)
-        {
-            dropItem(new OBJ_Coin_Bronze(gp));
-        }
-        if(i >= 50 && i < 75)
-        {
-            dropItem(new OBJ_Heart(gp));
-        }
-        if(i >= 75 && i < 100)
-        {
-            dropItem(new OBJ_ManaCrystal(gp));
-        }
-    }*/
+    
 }

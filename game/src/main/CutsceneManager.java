@@ -167,11 +167,6 @@ public class CutsceneManager {
         if(scenePhase == 4)
         {
             //The screen gets darker
-            /*alpha += 0.005f;  // after 200 frames alpha becomes 1
-            if(alpha > 1f)
-            {
-                alpha = 1f;
-            }*/
             alpha = graduallyAlpha(alpha, 0.005f);
 
             drawBlackBackground(alpha);
@@ -187,11 +182,7 @@ public class CutsceneManager {
             drawBlackBackground(1f);
 
             //Show message gradually
-           /* alpha += 0.005f;  // after 200 frames alpha becomes 1
-            if(alpha > 1f)
-            {
-                alpha = 1f;
-            }*/
+          
             alpha = graduallyAlpha(alpha, 0.005f);
 
             String text = "After the fierce battle with the Skeleton Lord,\n"

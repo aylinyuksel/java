@@ -93,7 +93,6 @@ public class Entity {
     public String description = "";
     public int useCost;
     public int value;
-    public int price;
     public int knockBackPower;
     public boolean stackable = false;
     public int amount = 1;

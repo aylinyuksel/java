@@ -21,7 +21,7 @@ public class NPC_BigRock extends Entity{
 
         name = npcName;
         direction = "down";
-        speed = 4;
+        speed = 7;
 
         solidArea = new Rectangle();
         solidArea.x = 2;

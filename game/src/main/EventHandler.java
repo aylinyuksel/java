@@ -55,7 +55,6 @@ public class EventHandler{
         eventMaster.dialogues[0][0] = "You fall into a pit!";
 
         eventMaster.dialogues[1][0] = "You drink the water.\nYour life and mana has been recovered.\n"+ "(The progress has been saved)";
-        eventMaster.dialogues[1][1] = "Damn, this is good water.";
     }
     public void checkEvent()
     {
@@ -72,10 +71,7 @@ public class EventHandler{
         {
             if(hit(0,23,12, "up") == true) {healingPool(gp.dialogueState);}
             else if(hit(0,27,16, "right") == true) {damagePit(gp.dialogueState);}
-            else if(hit(0,10,39, "any") == true) {teleport(1,12,13,gp.indoor);} //to merchant's house
-            else if(hit(1,12,13, "any") == true) {teleport(0,10,39,gp.outside);} //to outside
             else if(hit(1,12,9, "up") == true) {speak(gp.npc[1][0]);} //merchant
-            
             else if(hit(0,12,9, "any") == true) {teleport(5,11,29,gp.dungeonnew);} //to the dungeon
             else if(hit(2,9,41, "any") == true) {teleport(5,11,16,gp.dungeon);} //to outside
             else if(hit(2,8,7, "any") == true) {teleport(3,26,41,gp.dungeon);} //to B2
@@ -138,7 +134,7 @@ public class EventHandler{
         eventMaster.startDialogue(eventMaster, 0);
         gp.player.life -= 2;
         canTouchEvent = false;
-        //eventRect[col][row].eventDone = true;
+       
     }
     public void healingPool(int gameState)
     {
@@ -150,8 +146,6 @@ public class EventHandler{
             eventMaster.startDialogue(eventMaster,1);
             gp.player.life = gp.player.maxLife;
             gp.player.mana = gp.player.maxMana;
-            //when you rest at the healing pool monsters will respawn
-            gp.aSetter.setMonster();
             gp.saveLoad.save();
         }
     }

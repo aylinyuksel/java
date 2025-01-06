@@ -52,7 +52,6 @@ public class OBJ_Chest extends Entity {
             else
             {
                 startDialogue(this,1);
-                //gp.player.inventory.add(loot); //canObtainItem() already adds item
                 down1 = image2;
                 opened = true;
             }

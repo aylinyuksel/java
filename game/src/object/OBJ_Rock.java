@@ -23,7 +23,6 @@ public class OBJ_Rock extends Projectile {
         useCost = 1; //spend 1 mana
         alive = false;
         getImage();
-        price = 25;
         knockBackPower = 1;
     }
     public void getImage()

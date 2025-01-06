@@ -18,7 +18,6 @@ public class OBJ_Key extends Entity {
         name = objName;
         down1 = setup("/objects/key",gp.tileSize,gp.tileSize);
         description = "[" + name + "]\nIt opens a door.";
-        price = 350;
         stackable = true;
 
         setDialogue();
@@ -26,8 +25,6 @@ public class OBJ_Key extends Entity {
     public void setDialogue()
     {
         dialogues[0][0] = "You use the " + name + " and open the door.";
-
-        dialogues[1][0] = "What are you doing?";
     }
     public boolean use(Entity entity)
     {

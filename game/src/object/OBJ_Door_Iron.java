@@ -23,7 +23,6 @@ public class OBJ_Door_Iron extends Entity {
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        price = 35;
         setDialogue();
     }
     public void setDialogue()

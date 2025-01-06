@@ -18,7 +18,7 @@ public class MON_GreenSlime extends Entity {
         this.gp = gp;
 
         type = type_monster;
-        name = "Green Slime";
+        name = "Dungeon Slime";
         defaultSpeed = 1;
         speed = defaultSpeed;
         maxLife = 4;
@@ -26,7 +26,7 @@ public class MON_GreenSlime extends Entity {
         attack = 0;
         defense = 0;
         exp = 2;
-        //projectile = new OBJ_Rock(gp);
+       
 
 
         solidArea.x = 3;
@@ -61,8 +61,6 @@ public class MON_GreenSlime extends Entity {
             //Search the direction to go
             searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
 
-            //Check if it shoots a projectile
-            //checkShootOrNot(200, 30); //Just added to red slimes
         }
         else
         {
@@ -76,7 +74,6 @@ public class MON_GreenSlime extends Entity {
 
     public void damageReaction() {
         actionLockCounter = 0;
-        //direction = gp.player.direction;
         onPath = true; // gets aggro
     }
     public void checkDrop()

@@ -13,9 +13,7 @@ public class Lighting {
     public float filterAlpha = 0f;
 
     public final int day = 0;
-    public final int dusk = 1;
-    public final int night = 2;
-    public final int dawn = 3;
+  
     public int dayState = day;
 
 
@@ -96,15 +94,7 @@ public class Lighting {
         }
 
         //Check the state of the day
-        if(dayState == day)
-        {
-            dayCounter++;
-            if(dayCounter > 3600) //1 min day
-            {
-                dayState = dusk;
-                dayCounter = 0;
-            }
-        }
+        
        
     }
     public void draw(Graphics2D g2)
@@ -119,15 +109,6 @@ public class Lighting {
         }
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f)); //indoor: no darkness filter
 
-        //DEBUG
-        String situation = "";
-        switch (dayState)
-        {
-            
-            
-        }
-        g2.setColor(Color.white);
-        g2.setFont(g2.getFont().deriveFont(50f));
-        g2.drawString(situation,800,500);
+        
     }
 }

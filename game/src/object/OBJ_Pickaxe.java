@@ -17,7 +17,6 @@ public class OBJ_Pickaxe extends Entity {
         attackArea.width = 26;
         attackArea.height= 26;
         description = "[" + name + "]\nYou will dig it!";
-        price = 75;
         knockBackPower = 1;
         motion1_duration = 10;
         motion2_duration = 20;

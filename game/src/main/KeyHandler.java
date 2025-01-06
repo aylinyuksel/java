@@ -57,11 +57,6 @@ public class KeyHandler implements KeyListener {
         {
             gameOverState(code);
         }
-        // TRADE STATE
-        else if(gp.gameState == gp.tradeState)
-        {
-            tradeState(code);
-        }
         // MAP STATE
         else if(gp.gameState == gp.mapState)
         {
@@ -87,7 +82,6 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_ENTER) {
                 if (gp.ui.commandNum == 0) {
-                    //gp.ui.titleScreenState = 1; // Character class selection screen
                     gp.gameState = gp.playState;
                     gp.playMusic(0);
 
@@ -104,46 +98,7 @@ public class KeyHandler implements KeyListener {
                 }
             }
         }
-        //SECOND SCREEN // CHARACTER SELECTION
-        /*else if (gp.ui.titleScreenState == 1) {
-            if (code == KeyEvent.VK_W) {
-                gp.ui.commandNum--;
-                if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 3;
-                }
-            }
-            if (code == KeyEvent.VK_S) {
-                gp.ui.commandNum++;
-                if (gp.ui.commandNum > 3) {
-                    gp.ui.commandNum = 0;
-                }
-            }
-
-            if (code == KeyEvent.VK_ENTER) {
-                //FIGHTER
-                if (gp.ui.commandNum == 0) {
-                    System.out.println("Do some fighter specific stuff!");
-                    gp.gameState = gp.playState;
-                    gp.playMusic(0);
-                }
-                //THIEF
-                if (gp.ui.commandNum == 1) {
-                    System.out.println("Do some thief specific stuff!");
-                    gp.gameState = gp.playState;
-                    gp.playMusic(0);
-                }
-                //SORCERER
-                if (gp.ui.commandNum == 2) {
-                    System.out.println("Do some sorcerer specific stuff!");
-                    gp.gameState = gp.playState;
-                    gp.playMusic(0);
-                }
-                //BACK
-                if (gp.ui.commandNum == 3) {
-                    gp.ui.titleScreenState = 0;
-                }
-            }
-        }*/
+        
     }
     public void playState(int code)
     {
@@ -203,38 +158,6 @@ public class KeyHandler implements KeyListener {
             spacePressed = true;
         }
 
-        //DEBUG
-        /*
-        if(code == KeyEvent.VK_T)   //Debug Menu
-        {
-            if(showDebugText == false)
-            {
-                showDebugText = true;
-            }
-            else if(showDebugText == true)
-            {
-                showDebugText = false;
-            }
-        }
-        if(code == KeyEvent.VK_R)   //Refresh Map without restarting game // Save Map File : in IntellijIDE "Ctrl + F9", in Eclipce "Ctrl + S"
-        {
-            switch (gp.currentMap)
-            {
-                case 0: gp.tileM.loadMap("/maps/worldV3.txt",0); break;
-                case 1: gp.tileM.loadMap("/maps/interior01.txt",1); break;
-            }
-        }
-        if(code == KeyEvent.VK_G)   //Debug Menu
-        {
-            if(godModeOn == false)
-            {
-                godModeOn = true;
-            }
-            else if(godModeOn == true)
-            {
-                godModeOn = false;
-            }
-        }*/
     }
     public void pauseState(int code)
     {
@@ -368,50 +291,7 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-    public void tradeState(int code)
-    {
-        if(code == KeyEvent.VK_ENTER)
-        {
-            enterPressed = true;
-        }
-        if(gp.ui.subState == 0)
-        {
-            if(code == KeyEvent.VK_W)
-            {
-                gp.ui.commandNum--;
-                if(gp.ui.commandNum < 0)
-                {
-                    gp.ui.commandNum = 2;
-                }
-                gp.playSE(9);
-            }
-            if(code == KeyEvent.VK_S)
-            {
-                gp.ui.commandNum++;
-                if(gp.ui.commandNum > 2)
-                {
-                    gp.ui.commandNum = 0;
-                }
-                gp.playSE(9);
-            }
-        }
-        if(gp.ui.subState == 1)
-        {
-            npcInventory(code);
-            if(code == KeyEvent.VK_ESCAPE)
-            {
-                gp.ui.subState = 0;
-            }
-        }
-        if(gp.ui.subState == 2)
-        {
-            playerInventory(code);
-            if(code == KeyEvent.VK_ESCAPE)
-            {
-                gp.ui.subState = 0;
-            }
-        }
-    }
+    
     public void mapState(int code)
     {
        if(code == KeyEvent.VK_M)
@@ -454,41 +334,7 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-    public void npcInventory(int code)
-    {
-        if(code == KeyEvent.VK_W)
-        {
-            if(gp.ui.npcSlotRow != 0)
-            {
-                gp.ui.npcSlotRow--;
-                gp.playSE(9);   //cursor.wav
-            }
-        }
-        if(code == KeyEvent.VK_A)
-        {
-            if(gp.ui.npcSlotCol !=0)
-            {
-                gp.ui.npcSlotCol--;
-                gp.playSE(9);
-            }
-        }
-        if(code == KeyEvent.VK_S)
-        {
-            if(gp.ui.npcSlotRow != 3)
-            {
-                gp.ui.npcSlotRow++;
-                gp.playSE(9);
-            }
-        }
-        if(code == KeyEvent.VK_D)
-        {
-            if(gp.ui.npcSlotCol != 4)
-            {
-                gp.ui.npcSlotCol++;
-                gp.playSE(9);
-            }
-        }
-    }
+    
 
     @Override
     public void keyReleased(KeyEvent e) {

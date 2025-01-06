@@ -34,8 +34,7 @@ public class Player extends Entity{
         solidAreaDefaultX = 8;
         solidAreaDefaultY = 16;
 
-//      attackArea.width = 36;  //For test sword
-//      attackArea.height = 36;
+
 
         setDefaultValues(); // when u create Player object, initialize with default values
     }
@@ -48,10 +47,6 @@ public class Player extends Entity{
         gp.currentMap = 4;
         gp.currentArea = gp.outside;
 
-        //Blue Gem Start Position, mapNum = 3;
-//         worldX = gp.tileSize *25;
-//        worldY = gp.tileSize * 9;
-//        gp.currentMap = 3;
 
         defaultSpeed = 4;
         speed = defaultSpeed;
@@ -74,7 +69,7 @@ public class Player extends Entity{
         currentShield = new OBJ_Shield_Wood(gp);
         currentLight = null;
         projectile = new OBJ_Fireball(gp);
-        //projectile = new OBJ_Rock(gp);
+        
         attack = getAttack();   // The total attack value is decided by strength and weapon
         defense = getDefense(); // The total defense value is decided by dexterity and shield
 
@@ -82,7 +77,7 @@ public class Player extends Entity{
         getAttackImage();
         getGuardImage();
         setItems();
-        //setDialogue();
+        
     }
     public void setDefaultPositions()
     {
@@ -113,13 +108,7 @@ public class Player extends Entity{
         inventory.clear(); //cuz if game restarts inventory must be cleared first
         inventory.add(currentWeapon);
         inventory.add(currentShield);
-        /*inventory.add(new OBJ_Potion_Red(gp));
-        inventory.add(new OBJ_Key(gp));
-        inventory.add(new OBJ_Key(gp));
-
-        inventory.add(new OBJ_Lantern(gp));
-        inventory.add(new OBJ_Axe(gp));
-        inventory.add(new OBJ_Pickaxe(gp));*/
+        
 
     }
 
@@ -187,35 +176,35 @@ public class Player extends Entity{
         if(currentWeapon.type == type_sword)
         {
             attackUp1 = setup("/player/boy_attack_up_1",gp.tileSize, gp.tileSize * 2);         // 16x32 px
-            attackUp2 = setup("/player/boy_attack_up_2",gp.tileSize, gp.tileSize * 2);         // 16x32 px
-            attackDown1 = setup("/player/boy_attack_down_1",gp.tileSize, gp.tileSize * 2);     // 16x32 px
-            attackDown2 = setup("/player/boy_attack_down_2",gp.tileSize, gp.tileSize * 2);     // 16x32 px
+            attackUp2 = setup("/player/boy_attack_up_2",gp.tileSize, gp.tileSize * 2);        
+            attackDown1 = setup("/player/boy_attack_down_1",gp.tileSize, gp.tileSize * 2);     
+            attackDown2 = setup("/player/boy_attack_down_2",gp.tileSize, gp.tileSize * 2);     
             attackLeft1 = setup("/player/boy_attack_left_1",gp.tileSize * 2, gp.tileSize);      // 32x16 px
-            attackLeft2 = setup("/player/boy_attack_left_2",gp.tileSize * 2, gp.tileSize);      // 32x16 px
-            attackRight1 = setup("/player/boy_attack_right_1",gp.tileSize * 2, gp.tileSize);    // 32x16 px
-            attackRight2 = setup("/player/boy_attack_right_2",gp.tileSize * 2, gp.tileSize);    // 32x16 px
+            attackLeft2 = setup("/player/boy_attack_left_2",gp.tileSize * 2, gp.tileSize);      
+            attackRight1 = setup("/player/boy_attack_right_1",gp.tileSize * 2, gp.tileSize);    
+            attackRight2 = setup("/player/boy_attack_right_2",gp.tileSize * 2, gp.tileSize);   
         }
         else if(currentWeapon.type == type_axe)
         {
             attackUp1 = setup("/player/boy_axe_up_1",gp.tileSize, gp.tileSize * 2);         // 16x32 px
-            attackUp2 = setup("/player/boy_axe_up_2",gp.tileSize, gp.tileSize * 2);         // 16x32 px
-            attackDown1 = setup("/player/boy_axe_down_1",gp.tileSize, gp.tileSize * 2);     // 16x32 px
-            attackDown2 = setup("/player/boy_axe_down_2",gp.tileSize, gp.tileSize * 2);     // 16x32 px
+            attackUp2 = setup("/player/boy_axe_up_2",gp.tileSize, gp.tileSize * 2);         
+            attackDown1 = setup("/player/boy_axe_down_1",gp.tileSize, gp.tileSize * 2);     
+            attackDown2 = setup("/player/boy_axe_down_2",gp.tileSize, gp.tileSize * 2);    
             attackLeft1 = setup("/player/boy_axe_left_1",gp.tileSize * 2, gp.tileSize);      // 32x16 px
-            attackLeft2 = setup("/player/boy_axe_left_2",gp.tileSize * 2, gp.tileSize);      // 32x16 px
-            attackRight1 = setup("/player/boy_axe_right_1",gp.tileSize * 2, gp.tileSize);    // 32x16 px
-            attackRight2 = setup("/player/boy_axe_right_2",gp.tileSize * 2, gp.tileSize);    // 32x16 px
+            attackLeft2 = setup("/player/boy_axe_left_2",gp.tileSize * 2, gp.tileSize);      
+            attackRight1 = setup("/player/boy_axe_right_1",gp.tileSize * 2, gp.tileSize);   
+            attackRight2 = setup("/player/boy_axe_right_2",gp.tileSize * 2, gp.tileSize);  
         }
         else if(currentWeapon.type == type_pickaxe)
         {
             attackUp1 = setup("/player/boy_pick_up_1",gp.tileSize, gp.tileSize * 2);         // 16x32 px
-            attackUp2 = setup("/player/boy_pick_up_2",gp.tileSize, gp.tileSize * 2);         // 16x32 px
-            attackDown1 = setup("/player/boy_pick_down_1",gp.tileSize, gp.tileSize * 2);     // 16x32 px
-            attackDown2 = setup("/player/boy_pick_down_2",gp.tileSize, gp.tileSize * 2);     // 16x32 px
+            attackUp2 = setup("/player/boy_pick_up_2",gp.tileSize, gp.tileSize * 2);         
+            attackDown1 = setup("/player/boy_pick_down_1",gp.tileSize, gp.tileSize * 2);     
+            attackDown2 = setup("/player/boy_pick_down_2",gp.tileSize, gp.tileSize * 2);     
             attackLeft1 = setup("/player/boy_pick_left_1",gp.tileSize * 2, gp.tileSize);      // 32x16 px
-            attackLeft2 = setup("/player/boy_pick_left_2",gp.tileSize * 2, gp.tileSize);      // 32x16 px
-            attackRight1 = setup("/player/boy_pick_right_1",gp.tileSize * 2, gp.tileSize);    // 32x16 px
-            attackRight2 = setup("/player/boy_pick_right_2",gp.tileSize * 2, gp.tileSize);    // 32x16 px
+            attackLeft2 = setup("/player/boy_pick_left_2",gp.tileSize * 2, gp.tileSize);    
+            attackRight1 = setup("/player/boy_pick_right_1",gp.tileSize * 2, gp.tileSize);  
+            attackRight2 = setup("/player/boy_pick_right_2",gp.tileSize * 2, gp.tileSize);    
         }
 
     }
@@ -390,9 +379,8 @@ public class Player extends Entity{
 
             // SUBTRACT THE COST(MANA,AMMO ETC.)
             projectile.subtractResource(this);
-
-            // ADD IT TO THE LIST
-            //gp.projectileList.add(projectile);
+           
+          
 
             //CHECK VACANCY
             for(int i = 0; i < gp.projectile[1].length; i++)
@@ -800,24 +788,6 @@ public class Player extends Entity{
         //Reset graphics opacity / alpha
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
 
-        //DEBUG
-        /*g2.setFont(new Font("Arial",Font.PLAIN, 26));
-        g2.setColor(Color.white);
-        g2.drawString("Invincible:" + invincibleCounter, 10,400);
-
-        g2.setColor(Color.RED);
-        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height); //PLAYER COLLISION CHECKER.RED RECTANGLE.
-
-        tempScreenX = screenX + solidArea.x;
-        tempScreenY = screenY + solidArea.y;
-        switch(direction) {
-            case "up": tempScreenY = screenY - attackArea.height; break;
-            case "down": tempScreenY = screenY + gp.tileSize; break;
-            case "left": tempScreenX = screenX - attackArea.width; break;
-            case "right": tempScreenX = screenX + gp.tileSize; break;
-        }
-        g2.setColor(Color.red);
-        g2.setStroke(new BasicStroke(1));
-        g2.drawRect(tempScreenX, tempScreenY, attackArea.width, attackArea.height);*/
+        
     }
 }

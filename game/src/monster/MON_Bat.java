@@ -25,7 +25,6 @@ public class MON_Bat extends Entity {
         attack = 0;
         defense = 0;
         exp = 0;
-        //projectile = new OBJ_Rock(gp);
 
 
         solidArea.x = 3;
@@ -53,30 +52,18 @@ public class MON_Bat extends Entity {
     {
         if(onPath == true)
         {
-//
-//            //Check if it stops chasing
-//            checkStopChasingOrNot(gp.player,15,100);
-//
-//            //Search the direction to go
-//            searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
 
-            //Check if it shoots a projectile
-            //checkShootOrNot(200, 30); //Just added to red slimes
         }
         else
         {
-//            //Check if it starts chasing
-//            checkStartChasingOrNot(gp.player, 5, 100);
 
-            //Get a random direction
             getRandomDirection(10);
         }
     }
 
     public void damageReaction() {
         actionLockCounter = 0;
-        //direction = gp.player.direction;
-        //onPath = true; // gets aggro
+        
     }
     public void checkDrop()
     {

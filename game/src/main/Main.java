@@ -11,16 +11,11 @@ public class Main {
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false); // Cant Resizable
-        window.setTitle("Blue Boy Adventure\n"); // Window Name
+        window.setTitle("Dungeon Break\n"); // Window Name
        
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
 
-        
-        if(gamePanel.fullScreenOn == true)
-        {
-            window.setUndecorated(true);
-        }
 
         window.pack(); // Resizes to prefered size and prevents overflow.
 

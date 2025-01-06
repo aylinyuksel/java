@@ -20,7 +20,7 @@ public class EntityGenerator {
         {
             case OBJ_Axe.objName: obj = new OBJ_Axe(gp);break;
             case OBJ_BlueHeart.objName: obj = new OBJ_BlueHeart(gp);break;
-            case OBJ_Boots.objName: obj = new OBJ_Boots(gp);break;
+           
             case OBJ_Chest.objName: obj = new OBJ_Chest(gp);break;
             case OBJ_Coin_Bronze.objName: obj = new OBJ_Coin_Bronze(gp);break;
             case OBJ_Door.objName: obj = new OBJ_Door(gp);break;
@@ -36,7 +36,7 @@ public class EntityGenerator {
             case OBJ_Shield_Blue.objName: obj = new OBJ_Shield_Blue(gp);break;
             case OBJ_Shield_Wood.objName: obj = new OBJ_Shield_Wood(gp);break;
             case OBJ_Sword_Normal.objName: obj = new OBJ_Sword_Normal(gp);break;
-            case OBJ_Tent.objName: obj = new OBJ_Tent(gp);break;
+            
 
         }
         return obj;

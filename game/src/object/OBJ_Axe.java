@@ -16,7 +16,6 @@ public class OBJ_Axe extends Entity {
         attackArea.width = 26;
         attackArea.height= 26;
         description = "[" + name + "]\nA bit rusty but still \ncan cut some trees.";
-        price = 75;
         knockBackPower = 5;
         motion1_duration = 20;
         motion2_duration = 40;
