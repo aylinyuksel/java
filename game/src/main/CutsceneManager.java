@@ -3,7 +3,6 @@ package main;
 import entity.PlayerDummy;
 import monster.MON_SkeletonLord;
 import object.OBJ_BlueHeart;
-import object.OBJ_Door;
 import object.OBJ_Door_Iron;
 
 import java.awt.*;
@@ -20,11 +19,10 @@ public class CutsceneManager {
     int y;
     String endCredit;
 
-    //Scene Number
+    //scene Number Constants
     public final int NA = 0;
     public final int skeletonLord = 1;
     public final int ending = 2;
-
 
     public CutsceneManager(GamePanel gp)
     {
@@ -33,37 +31,42 @@ public class CutsceneManager {
                 + "Aylin Yuksel\nAysha Mallamahmoud\nAli Bugra Tekin\nFeyza Tiryaki\nHazar Dardagan\n"
                 + "Thank you for playing!";
     }
+
+    //draw method to display different cutscenes based on the current scene number
     public void draw(Graphics2D g2)
     {
         this.g2 = g2;
 
         switch(sceneNum)
         {
-            case skeletonLord: scene_skeletonLord(); break;
-            case ending: scene_ending(); break;
+            case skeletonLord: scene_skeletonLord(); break;  //call cut scene for Skeleton Lord
+            case ending: scene_ending(); break;  //call cut scene for ending
         }
-
     }
+
+    // Skeleton Lord cut scene sequence
     public void scene_skeletonLord()
     {
         if(scenePhase == 0)
         {
-            gp.bossBattleOn =true;
+            gp.bossBattleOn = true;
 
-            //Shut the iron door to trap player
-            for(int i = 0; i < gp.obj[1].length; i++) //Search a vacant slot for the iron door
+            //shut the iron door to trap player
+            for(int i = 0; i < gp.obj[1].length; i++) //search for a vacant slot for the iron door
             {
                 if(gp.obj[gp.currentMap][i] == null)
                 {
                     gp.obj[gp.currentMap][i] = new OBJ_Door_Iron(gp);
                     gp.obj[gp.currentMap][i].worldX = gp.tileSize * 25;
                     gp.obj[gp.currentMap][i].worldY = gp.tileSize * 28;
-                    gp.obj[gp.currentMap][i].temp = true; //only need during the boss fight
-                    gp.playSE(21);
+                    gp.obj[gp.currentMap][i].temp = true; // Only needed during the boss fight
+                    gp.playSE(21); 
                     break;
                 }
             }
-            for(int i = 0; i < gp.npc[1].length; i++) //Search a vacant slot for the player dummy
+
+            //create a player dummy to simulate the players movement
+            for(int i = 0; i < gp.npc[1].length; i++) //search for a vacant slot for the player dummy
             {
                 if(gp.npc[gp.currentMap][i] == null)
                 {
@@ -74,26 +77,27 @@ public class CutsceneManager {
                     break;
                 }
             }
-            gp.player.drawing = false;
+
+            gp.player.drawing = false;  //hide the player during the cut scene
 
             scenePhase++;
         }
         if(scenePhase == 1)
         {
             gp.player.worldY -= 2;
-            if(gp.player.worldY < gp.tileSize * 16) //stop camera
+            if(gp.player.worldY < gp.tileSize * 16) //to stop camera at a specific position
             {
                 scenePhase++;
             }
         }
         if(scenePhase == 2)
         {
-            //Search for the boss
+            //search for the boss monster (!Skeleton Lord!)
             for(int i = 0; i < gp.monster[1].length; i++)
             {
                 if(gp.monster[gp.currentMap][i] != null && gp.monster[gp.currentMap][i].name.equals(MON_SkeletonLord.monName))
                 {
-                    gp.monster[gp.currentMap][i].sleep = false;
+                    gp.monster[gp.currentMap][i].sleep = false;  //wake up the boss !!!
                     gp.ui.npc = gp.monster[gp.currentMap][i];
                     scenePhase++;
                     break;
@@ -102,71 +106,66 @@ public class CutsceneManager {
         }
         if(scenePhase == 3)
         {
-            // The boss speaks
-            gp.ui.drawDialogueScreen(); // increases scenePhase
-
+            gp.ui.drawDialogueScreen();  //increase scenePhase for next phase
         }
         if(scenePhase == 4)
         {
-            // Return to the player
+            //return to the player
 
-            //Search for the dummy
+            //search for the player dummy and restore player position
             for(int i = 0; i < gp.npc[1].length; i++)
             {
                 if(gp.npc[gp.currentMap][i] != null && gp.npc[gp.currentMap][i].name.equals(PlayerDummy.npcName))
                 {
-                    //Restore the player position
                     gp.player.worldX = gp.npc[gp.currentMap][i].worldX;
                     gp.player.worldY = gp.npc[gp.currentMap][i].worldY;
                     gp.player.direction = gp.npc[gp.currentMap][i].direction;
-                    //Delete the dummy
-                    gp.npc[gp.currentMap][i] = null;
+                    gp.npc[gp.currentMap][i] = null;  //delete the dummy
                     break;
                 }
             }
-            //Start drawing the player
-            gp.player.drawing = true;
 
-            //Reset
+            gp.player.drawing = true;  //start drawing the player again
+
+            //reset the cut scene state
             sceneNum = NA;
             scenePhase = 0;
-            gp.gameState = gp.playState;
+            gp.gameState = gp.playState;  //return to the play state
 
-            //Change the music
             gp.stopMusic();
             gp.playMusic(22);
         }
     }
+
+    //ending cut scene sequence
     public void scene_ending()
     {
         if(scenePhase == 0)
         {
             gp.stopMusic();
-            gp.ui.npc = new OBJ_BlueHeart(gp);
+            gp.ui.npc = new OBJ_BlueHeart(gp);  
             scenePhase++;
         }
         if(scenePhase == 1)
         {
-            //Display dialogues
             gp.ui.drawDialogueScreen();
         }
         if(scenePhase == 2)
         {
-            //Play the fanfare
             gp.playSE(4);
             scenePhase++;
         }
         if(scenePhase == 3)
         {
-            //Wait until the sound effect ends
-            if(counterReached(300) == true) // 5 sec delay
+            //wait until the sound effect ends (5 second delay)
+            if(counterReached(300) == true)
             {
                 scenePhase++;
             }
         }
         if(scenePhase == 4)
         {
-            //The screen gets darker
+            //the screen gets darker gradually
             alpha = graduallyAlpha(alpha, 0.005f);
 
             drawBlackBackground(alpha);
@@ -181,8 +180,7 @@ public class CutsceneManager {
         {
             drawBlackBackground(1f);
 
-            //Show message gradually
-          
+            //show message gradually
             alpha = graduallyAlpha(alpha, 0.005f);
 
             String text = "After the fierce battle with the Skeleton Lord,\n"
@@ -194,7 +192,7 @@ public class CutsceneManager {
 
             if(counterReached(600) == true && alpha == 1f)
             {
-                gp.playMusic(0);
+                gp.playMusic(0); 
                 alpha = 0;
                 scenePhase++;
             }
@@ -205,7 +203,7 @@ public class CutsceneManager {
 
             alpha = graduallyAlpha(alpha, 0.01f);
 
-            drawString(alpha,120f, gp.screenHeight/2, "Dungeon Break", 40);
+            drawString(alpha, 120f, gp.screenHeight / 2, "Dungeon Break", 40);
 
             if(counterReached(480) == true && alpha == 1f)
             {
@@ -215,14 +213,14 @@ public class CutsceneManager {
         }
         if(scenePhase == 7)
         {
-            //First Credits
+            //first credits
             drawBlackBackground(1f);
 
             alpha = graduallyAlpha(alpha, 0.01f);
 
-            y = gp.screenHeight/2;
+            y = gp.screenHeight / 2;
 
-            drawString(alpha, 38f,  y, endCredit, 40);
+            drawString(alpha, 38f, y, endCredit, 40);
 
             if(counterReached(240) == true && alpha == 1f)
             {
@@ -234,23 +232,23 @@ public class CutsceneManager {
         {
             drawBlackBackground(1f);
 
-            //Scrolling the credit
+            // scroll the credits
             y--;
-            drawString(1f, 38f,  y, endCredit, 40);
-            if(counterReached(1320) == true) //22sec
+            drawString(1f, 38f, y, endCredit, 40);
+            if(counterReached(1320) == true)  // 22-second delay
             {
-                //Reset
+                // reset the cut scene manager state
                 sceneNum = NA;
                 scenePhase = 0;
 
-                //Transition to game again
+                //transition back to the game
                 gp.gameState = gp.playState;
                 gp.resetGame(false);
-
             }
         }
     }
 
+    //method to check if the counter has reached the target value
     public boolean counterReached(int target)
     {
         boolean counterReached = false;
@@ -258,24 +256,28 @@ public class CutsceneManager {
         if(counter > target)
         {
             counterReached = true;
-            counter = 0;
+            counter = 0;  // reset counter
         }
         return counterReached;
     }
+
+    //method to draw a black background with alpha transparency
     public void drawBlackBackground(float alpha)
     {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
         g2.setColor(Color.black);
-        g2.fillRect(0,0, gp.screenWidth, gp.screenHeight);
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
+
+    // method to draw a string with gradual alpha transparency
     public void drawString(float alpha, float fontSize, int y, String text, int lineHeight)
     {
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(fontSize));
 
-        for(String line: text.split("\n"))
+        for(String line : text.split("\n"))
         {
             int x = gp.ui.getXforCenteredText(line);
             g2.drawString(line, x, y);
@@ -283,9 +285,11 @@ public class CutsceneManager {
         }
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
+
+    //method to gradually change alpha transparency
     public float graduallyAlpha(float alpha, float grade)
     {
-        alpha += grade;  // after 200 frames alpha becomes 1
+        alpha += grade;
         if(alpha > 1f)
         {
             alpha = 1f;

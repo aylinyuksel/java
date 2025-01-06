@@ -12,15 +12,16 @@ public class EntityGenerator {
         this.gp = gp;
     }
 
+    //method to generate an object based on its name
     public Entity getObject(String itemName)
     {
-        Entity obj = null;
+        Entity obj = null; //initially set to null
 
-        switch (itemName)
+        switch (itemName)//switch statement to match the given item name with a specific object
+
         {
             case OBJ_Axe.objName: obj = new OBJ_Axe(gp);break;
             case OBJ_BlueHeart.objName: obj = new OBJ_BlueHeart(gp);break;
-           
             case OBJ_Chest.objName: obj = new OBJ_Chest(gp);break;
             case OBJ_Coin_Bronze.objName: obj = new OBJ_Coin_Bronze(gp);break;
             case OBJ_Door.objName: obj = new OBJ_Door(gp);break;

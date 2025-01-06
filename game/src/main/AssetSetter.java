@@ -29,7 +29,7 @@ public class AssetSetter {
         
         mapNum = 4;
         i = 0;
-
+        //adding assets on the map 4
         gp.obj[mapNum][i] = new OBJ_Coin_Bronze(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 23;
         gp.obj[mapNum][i].worldY = gp.tileSize * 31;
@@ -53,7 +53,7 @@ public class AssetSetter {
        
         
         mapNum = 0;
-        i = 0;
+        i = 0; //reset the index for other map 
         gp.obj[mapNum][i] = new OBJ_Axe(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 33;
         gp.obj[mapNum][i].worldY = gp.tileSize * 7;
@@ -81,8 +81,8 @@ public class AssetSetter {
         i++;
         
         
-        mapNum = 5;
-        i=0;
+        mapNum = 5; //new map
+        i=0; //reset index
         gp.obj[mapNum][i] = new OBJ_Key(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 26;
         gp.obj[mapNum][i].worldY = gp.tileSize * 38;
@@ -156,14 +156,14 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize * 16;
         i++;
         
-        mapNum = 1;//adding object to second map
+        mapNum = 1;//new map
         i=0;
         gp.obj[mapNum][i] = new OBJ_Coin_Bronze(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 10;
         gp.obj[mapNum][i].worldY = gp.tileSize * 10;
         i++;
 
-        mapNum = 2;
+        mapNum = 2; //new map
         i = 0;
         gp.obj[mapNum][i] = new OBJ_Chest(gp);
         gp.obj[mapNum][i].setLoot(new OBJ_Pickaxe(gp));
@@ -176,7 +176,7 @@ public class AssetSetter {
         gp.obj[mapNum][i].worldY = gp.tileSize * 23;
         i++;
 
-        mapNum = 3;
+        mapNum = 3; 
         i = 0;
         gp.obj[mapNum][i] = new OBJ_Door_Iron(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 25;
@@ -192,7 +192,7 @@ public class AssetSetter {
         
     }
 
-    public void setNPC()
+    public void setNPC() //setting NPCs on different maps
     {
         int mapNum = 0;
         int i = 0;
@@ -220,7 +220,7 @@ public class AssetSetter {
         i++;
 
     }
-    public void setMonster()
+    public void setMonster() //setting monsters on the maps
     {
         int mapNum = 0;
         int i = 0;
@@ -328,7 +328,7 @@ public class AssetSetter {
 
 
     }
-    public void setInteractiveTile()
+    public void setInteractiveTile() //setting interactive tiles on the maps
     {
         int mapNum = 0;
         int i = 0;

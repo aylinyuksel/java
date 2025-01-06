@@ -11,11 +11,13 @@ public class CollisionChecker {
     }
     public void checkTile(Entity entity)
     {
+        // Calculate the boundaries of the entity's solid area in world coordinates
         int entityLeftWorldX = entity.worldX + entity.solidArea.x;                                // solidArea.x = 8
         int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;      // solidArea.y = 16
         int entityTopWorldY = entity.worldY + entity.solidArea.y;                                 // solidArea.width = 32
         int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;    // solidArea.height = 32
 
+        // Calculate the tile column and row for each boundary
         int entityLeftCol = entityLeftWorldX/gp.tileSize;
         int entityRightCol = entityRightWorldX/gp.tileSize;
         int entityTopRow = entityTopWorldY/gp.tileSize;
@@ -23,7 +25,7 @@ public class CollisionChecker {
 
         int tileNum1 , tileNum2;
 
-        //Use a temporal direction when it's being knockbacked
+        // If the entity is being knockbacked, use the knockback direction instead of the current one        
         String direction = entity.direction;
         if(entity.knockBack == true)
         {
@@ -76,16 +78,16 @@ public class CollisionChecker {
 
     public int checkObject(Entity entity, boolean player)
     {
-        int index = 999;
+        int index = 999; //default index
 
-        //Use a temporal direction when it's being knockbacked
+        //if the entity is being knockbacked, use the knockback direction instead of the current one
         String direction = entity.direction;
         if(entity.knockBack == true)
         {
             direction = entity.knockBackDirection;
         }
 
-        for(int i = 0;i < gp.obj[1].length; i++)
+        for(int i = 0;i < gp.obj[1].length; i++) //loop through all objects on the current map
         {
             if(gp.obj[gp.currentMap][i] != null)
             {
@@ -112,17 +114,21 @@ public class CollisionChecker {
                         entity.solidArea.x += entity.speed;
                         break;
                 }
+                
+                //check if the entity's solid area intersects with the object's solid area
                 if(entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) //Checking if Entity rectangle and Object rectangle intersects.
                 {
                     if(gp.obj[gp.currentMap][i].collision == true) //Collision (Player can't enter through a door.)
                     {
                         entity.collisionOn = true;
                     }
+                    //if the entity is the player, return the object index for further interaction (like picking up)
                     if(player == true) // Checking this because no one can receive items except the player.
                     {
                         index = i;   // Non-player characters cannot pickup objects.
                     }
                 }
+                //reset the solid areas to their default positions after the check
                 entity.solidArea.x = entity.solidAreaDefaultX; // Reset
                 entity.solidArea.y = entity.solidAreaDefaultY;
 
@@ -200,6 +206,7 @@ public class CollisionChecker {
         gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;       //entity's solid area and obj's solid area is different.
         gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
 
+     //adjust the entity's solid area based on its direction
         switch (entity.direction)
         {
             case "up" :
