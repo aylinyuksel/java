@@ -151,8 +151,11 @@ public class AssetSetter {
         gp.monster[mapNum][i].worldX = gp.tileSize*30;
         gp.monster[mapNum][i].worldY = gp.tileSize*10;
         i++;
-
-
+        gp.obj[mapNum][i] = new OBJ_Potion_Red(gp);
+        gp.obj[mapNum][i].worldX = gp.tileSize * 15;
+        gp.obj[mapNum][i].worldY = gp.tileSize * 16;
+        i++;
+        
         mapNum = 1;//adding object to second map
         i=0;
         gp.obj[mapNum][i] = new OBJ_Coin_Bronze(gp);

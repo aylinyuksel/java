@@ -15,7 +15,7 @@ public class Sound {
 
     public Sound()
     {
-        soundURL[0] = getClass().getResource("/sound/BlueBoyAdventure.wav");
+        soundURL[0] = getClass().getResource("/sound/normalLevel.wav");
         soundURL[1] = getClass().getResource("/sound/coin.wav");
         soundURL[2] = getClass().getResource("/sound/powerup.wav");
         soundURL[3] = getClass().getResource("/sound/unlock.wav");
@@ -34,10 +34,10 @@ public class Sound {
         soundURL[16] = getClass().getResource("/sound/parry.wav");
         soundURL[17] = getClass().getResource("/sound/speak.wav");
         soundURL[18] = getClass().getResource("/sound/Merchant.wav");
-        soundURL[19] = getClass().getResource("/sound/Dungeon.wav");
+        soundURL[19] = getClass().getResource("/sound/dungeon.wav");
         soundURL[20] = getClass().getResource("/sound/chipwall.wav");
         soundURL[21] = getClass().getResource("/sound/dooropen.wav");
-        soundURL[22] = getClass().getResource("/sound/FinalBattle.wav");
+        soundURL[22] = getClass().getResource("/sound/boss.wav");
 
 
     }
