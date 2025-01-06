@@ -22,14 +22,15 @@ public class IT_DestructibleWall extends InteractiveTile{
 
         down1 = setup("/tiles_interactive/destructiblewall",gp.tileSize,gp.tileSize);
         destructible = true;
-        life = 3;
+        life = 3; //the destructible wall has 3 life points
     }
+    
     public boolean isCorrectItem(Entity entity)
     {
         boolean isCorrectItem = false;
         if(entity.currentWeapon.type == type_pickaxe)
         {
-            isCorrectItem = true;
+            isCorrectItem = true; //the tile can only be destroyed with a pickaxe
         }
         return isCorrectItem;
     }
@@ -37,12 +38,14 @@ public class IT_DestructibleWall extends InteractiveTile{
     {
         gp.playSE(20);
     }
+    
     public InteractiveTile getDestroyedForm()
     {
         InteractiveTile tile = null;
         return tile;
     }
-    public Color getParticleColor()
+    
+    public Color getParticleColor() //returns the color of particles when the tile is destroyed
     {
         Color color = new Color(65,65,65);
         return color;

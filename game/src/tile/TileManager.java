@@ -1,6 +1,6 @@
 package tile;
 
-import entity.Entity;
+//import entity.Entity;
 import main.GamePanel;
 import main.UtilityTool;
 
@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+
+//the TileManager class is responsible for loading, managing, and rendering tiles in the game world.
+//it loads tile images, stores tile information (like collision), and handles map data for rendering.
 
 public class TileManager  {
     GamePanel gp;
@@ -76,6 +80,8 @@ public class TileManager  {
         loadMap("/maps/dungeonnew.txt",5);//3
         loadMap("/maps/finalscence.txt",6);//6
     }
+    
+    
     public void getTileImage()
     {
         for(int i = 0; i < fileNames.size(); i++)
@@ -100,11 +106,9 @@ public class TileManager  {
 
         }
 
-
-
-       
+     
     }
-    public void setup(int index, String imageName, boolean collision)
+    public void setup(int index, String imageName, boolean collision) //method to setup each tile with its image and collision status.
     {                                                                       // IMPROVING RENDERING // Scaling with uTool
         UtilityTool uTool = new UtilityTool();                              // With uTool I'm not using anymore like: g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize,null);
         try                                                                 // I use g2.drawImage(tile[tileNum].image, screenX, screenY,null);
@@ -119,7 +123,8 @@ public class TileManager  {
             e.printStackTrace();
         }
     }
-    public void loadMap(String filePath,int map)
+    
+    public void loadMap(String filePath,int map) //method to load a map's tile data from a file.
     {
         try
         {
@@ -138,7 +143,7 @@ public class TileManager  {
                     String numbers[] = line.split(" ");
                     int num = Integer.parseInt(numbers[col]);
 
-                    mapTileNum[map][col][row] = num;
+                    mapTileNum[map][col][row] = num; //set the tile number at the current position.
                     col++;
                 }
                 if(col == gp.maxWorldCol)
@@ -168,6 +173,7 @@ public class TileManager  {
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
+            //this part checks if the tile is within the player's visible screen area
             if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
                worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
                worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&

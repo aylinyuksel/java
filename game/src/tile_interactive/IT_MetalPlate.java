@@ -17,7 +17,7 @@ public class IT_MetalPlate extends InteractiveTile{
         name = itName;
         down1 = setup("/tiles_interactive/metalplate",gp.tileSize,gp.tileSize);
 
-        // NO COLLISION
+        // NO COLLISION (it does not block movement)
         solidArea.x = 0;
         solidArea.y = 0;
         solidArea.width = 0;

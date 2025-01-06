@@ -14,16 +14,20 @@ public class InteractiveTile extends Entity {
         super(gp);
         this.gp = gp;
     }
+    
+    //checks if the correct item is used on the interactive tile
     public boolean isCorrectItem(Entity entity)
     {
         boolean isCorrectItem = false;
         //Sub-class specifications
         return isCorrectItem;
     }
+    
     public void playSE()
     {
-
+    	//sound effect logic will be defined in subclasses
     }
+    
     public InteractiveTile getDestroyedForm()
     {
         InteractiveTile tile = null;
@@ -35,7 +39,7 @@ public class InteractiveTile extends Entity {
         if(invincible == true)
         {
             invincibleCounter++;
-            if(invincibleCounter > 20)
+            if(invincibleCounter > 20) //after 20 ticks, reset invincibility
             {
                 invincible = false;
                 invincibleCounter = 0;

@@ -14,7 +14,7 @@ public class IT_Trunk extends InteractiveTile{
 
         down1 = setup("/tiles_interactive/trunk",gp.tileSize,gp.tileSize);
 
-        // NO COLLISION
+        // NO COLLISION (it doesnt block movement)
         solidArea.x = 0;
         solidArea.y = 0;
         solidArea.width = 0;

@@ -20,27 +20,28 @@ public class IT_DryTree extends InteractiveTile{
         destructible = true;
         life = 2;
     }
+ //checks if the correct item (Axe) is used to chop down the tree
     public boolean isCorrectItem(Entity entity)
     {
         boolean isCorrectItem = false;
         if(entity.currentWeapon.type == type_axe)
         {
-            isCorrectItem = true;
+            isCorrectItem = true; //the tree can only be chopped with an axe
         }
         return isCorrectItem;
     }
-    public void playSE()
+    public void playSE() //plays a sound effect when the tree is chopped
     {
         gp.playSE(11);
     }
     public InteractiveTile getDestroyedForm()
     {
         InteractiveTile tile = new IT_Trunk(gp, worldX / gp.tileSize, worldY / gp.tileSize);
-        return tile;
+        return tile; //return a new trunk as the destroyed form
     }
     public Color getParticleColor()
     {
-        Color color = new Color(65,50,30);
+        Color color = new Color(65,50,30); //brown color for the tree particles
         return color;
     }
     public int getParticleSize()
