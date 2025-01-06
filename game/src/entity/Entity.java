@@ -16,19 +16,19 @@ public class Entity {
     public BufferedImage up1,up2,down1,down2,left1,left2,right1,right2;
     public BufferedImage attackUp1,attackUp2,attackDown1,attackDown2,attackLeft1,attackLeft2,attackRight1,attackRight2,guardUp,guardDown,guardLeft,guardRight;
     public BufferedImage image, image2, image3;
-    public Rectangle solidArea = new Rectangle(0,0, 48, 48);  //collision alani
-    public Rectangle attackArea = new Rectangle(0,0, 0, 0);  // Saldiri alan
+    public Rectangle solidArea = new Rectangle(0,0, 48, 48);  //collision area
+    public Rectangle attackArea = new Rectangle(0,0, 0, 0);  
     public int solidAreaDefaultX, solidAreaDefaultY;
-    public boolean collision = false; //collision kontrolu
+    public boolean collision = false; 
     public String dialogues[][] = new String[20][20];
     public Entity attacker; 
     public Entity linkedEntity; 
     public boolean temp = false;
 
     //STATE
-    public int worldX,worldY; // player pozisyonu 
-    public String direction = "down"; //belirledigimiz yon 
-    public int spriteNum = 1; //animasyonu spriti
+    public int worldX,worldY; // player position
+    public String direction = "down"; 
+    public int spriteNum = 1; 
     public int dialogueSet = 0; 
     public int dialogueIndex = 0;
     public boolean collisionOn = false;
@@ -100,7 +100,7 @@ public class Entity {
     public int lightRadius;
 
     //TYPE
-    public int type; // 0=player, 1=npc, 2=monster etc.
+    public int type; // 
     public final int type_player = 0;
     public final int type_npc = 1;
     public final int type_monster = 2;
@@ -224,7 +224,7 @@ public class Entity {
     {
 
     }
-    public void facePlayer()
+    public void facePlayer()  // Sets the direction to face the player based on their current direction.
     {
         switch (gp.player.direction)
         {
@@ -242,7 +242,7 @@ public class Entity {
                 break;
         }
     }
-    public void startDialogue(Entity entity, int setNum)
+    public void startDialogue(Entity entity, int setNum) // Initiates a dialogue with the specified entity
     {
         gp.gameState = gp.dialogueState;
         gp.ui.npc = entity;
@@ -261,7 +261,8 @@ public class Entity {
     {
 
     }
-    public void dropItem(Entity droppedItem)
+    public void dropItem(Entity droppedItem)  // Checks for item drops.
+   // Places the dropped item in the first available slot on the map.
     {
         for(int i = 0; i < gp.obj[1].length; i++)
         {
@@ -274,7 +275,7 @@ public class Entity {
             }
         }
     }
-    public Color getParticleColor()
+    public Color getParticleColor() // Returns the color of the particle 
     {
         Color color = null;
         //Sub-class specifications
@@ -300,16 +301,17 @@ public class Entity {
     }
     public void generateParticle(Entity generator, Entity target)
     {
+    	//Generates four particles based on the generator's properties and adds them to the particle list.
         Color color = generator.getParticleColor();
         int size = generator.getParticleSize();
         int speed = generator.getParticleSpeed();
         int maxLife = generator.getParticleMaxLife();
 
-        //generator becomes target so particles appear where the monster is.
-        Particle p1 = new Particle(gp, target, color, size, speed, maxLife, -2, -1);    //TOP-LEFT
-        Particle p2 = new Particle(gp, target, color, size, speed, maxLife, 2, -1);     //TOP-RIGHT
-        Particle p3 = new Particle(gp, target, color, size, speed, maxLife, -2, 1);     //DOWN-LEFT
-        Particle p4 = new Particle(gp, target, color, size, speed, maxLife, 2, 1);      //DOWN-RIGHT
+        
+        Particle p1 = new Particle(gp, target, color, size, speed, maxLife, -2, -1);    
+        Particle p2 = new Particle(gp, target, color, size, speed, maxLife, 2, -1);     
+        Particle p3 = new Particle(gp, target, color, size, speed, maxLife, -2, 1);     
+        Particle p4 = new Particle(gp, target, color, size, speed, maxLife, 2, 1);      
 
         gp.particleList.add(p1);
         gp.particleList.add(p2);
@@ -317,33 +319,33 @@ public class Entity {
         gp.particleList.add(p4);
     }
     public void checkCollision()
-    {
-        collisionOn = false;
-        gp.cChecker.checkTile(this);
+    { 
+        collisionOn = false;  // Reset collision status before checks.
+        gp.cChecker.checkTile(this);  // Check collision with tiles in the game 
         gp.cChecker.checkObject(this,false);
         gp.cChecker.checkEntity(this, gp.npc);
         gp.cChecker.checkEntity(this, gp.monster);
         gp.cChecker.checkEntity(this,gp.iTile);
-        boolean contactPlayer = gp.cChecker.checkPlayer(this);
-        if(this.type == type_monster && contactPlayer == true)
+        boolean contactPlayer = gp.cChecker.checkPlayer(this); // Check if this entity makes contact with the player.
+        if(this.type == type_monster && contactPlayer == true)  // If this entity is a monster and it contacts the player, deal damage
         {
-            damagePlayer(attack);
+            damagePlayer(attack); //Inflict damage on the player.
         }
     }
     public void update()
     {
-        if(sleep == false)
+        if(sleep == false) // Skip update if sleeping.
         {
             if(knockBack == true)
             {
                 checkCollision();
-                if(collisionOn == true)
+                if(collisionOn == true)  // Stop knockback on collision.
                 {
                     knockBackCounter = 0;
                     knockBack = false;
                     speed = defaultSpeed;
                 }
-                else if(collisionOn == false)
+                else if(collisionOn == false)  // Continue knockback in the specified direction.
                 {
                     switch (knockBackDirection)
                     {
@@ -365,23 +367,23 @@ public class Entity {
                     }
                 }
                 knockBackCounter++;
-                if(knockBackCounter == 10)
+                if(knockBackCounter == 10) // Stop knockback after 10 ticks.
                 {
                     knockBackCounter = 0;
                     knockBack = false;
                     speed = defaultSpeed;
                 }
             }
-            else if(attacking == true)
+            else if(attacking == true) // Handle attacking.
             {
                 attacking();
             }
-            else
+            else // Handle normal movement and actions.
             {
-                setAction();
-                checkCollision();
+                setAction(); // Set entity action.
+                checkCollision(); 
 
-                if(collisionOn == false)
+                if(collisionOn == false) // Move in the current direction if no collision.
                 {
                     switch (direction)
                     {
@@ -402,35 +404,36 @@ public class Entity {
                             break;
                     }
                 }
-                spriteCounter++;
+                spriteCounter++; // Update sprite animation.
                 if (spriteCounter > 24) {
-                    if (spriteNum == 1)                  //Every 12 frames sprite num changes.
+                    if (spriteNum == 1) // Alternate sprite frames every 12 ticks.
                     {
                         spriteNum = 2;
                     } else if (spriteNum == 2) {
                         spriteNum = 1;
                     }
-                    spriteCounter = 0;                  // spriteCounter reset
+                    spriteCounter = 0;   // Reset sprite counter.
                 }
             }
-            //Like player's invincible method
-            if(invincible == true)
+            
+            if(invincible == true) // Handle invincibility duration.
             {
                 invincibleCounter++;
                 if(invincibleCounter > 40)
                 {
                     invincible = false;
-                    invincibleCounter = 0;
+                    invincibleCounter = 0;   //End invincibility after 40 ticks.
                 }
             }
-            if(shotAvailableCounter < 30)
+            if(shotAvailableCounter < 30) // Increment shot cooldown counter.
+
             {
                 shotAvailableCounter++;
             }
-            if(offBalance == true)
+            if(offBalance == true) // Handle off-balance state.
             {
                 offBalanceCounter++;
-                if(offBalanceCounter > 60)
+                if(offBalanceCounter > 60)  // End off-balance state after 60 ticks.
                 {
                     offBalance = false;
                     offBalanceCounter = 0;
@@ -439,26 +442,27 @@ public class Entity {
         }
     }
     public void checkAttackOrNot(int rate, int straight, int horizontal)
+ // Checks if the entity should attack the player based on range and probability.
     {
-        boolean tartgetInRange = false;
+        boolean tartgetInRange = false; // Flag to check if the player is within attack range.
         int xDis = getXdistance(gp.player);
         int yDis = getYdistance(gp.player);
 
-        switch (direction)
+        switch (direction)  //if the player is in the attack range based on direction
         {
-            case "up":
+            case "up": // Check if the player is above and within range.
                 if(gp.player.getCenterY() < getCenterY()  && yDis < straight && xDis < horizontal)
                 {
                     tartgetInRange = true;
                 }
                 break;
-            case "down":
+            case "down": // Check if the player is below and within range.
                 if(gp.player.getCenterY()  > getCenterY()  && yDis < straight && xDis < horizontal)
                 {
                     tartgetInRange = true;
                 }
                 break;
-            case "left":
+            case "left": // Check if the player is to the left and within range.
                 if(gp.player.getCenterX()  < getCenterX() && xDis < straight && yDis < horizontal)
                 {
                     tartgetInRange = true;
@@ -608,10 +612,10 @@ public class Entity {
             //Adjust player's worldX/worldY for the attackArea
             switch (direction)
             {
-                case "up": worldY -= attackArea.height; break;                 //attackArea's size
-                case "down" : worldY += gp.tileSize; break;                    //gp.tileSize(player's size)
-                case "left" : worldX -= attackArea.width; break;               //attackArea's size
-                case "right" : worldX += gp.tileSize; break;                   //gp.tileSize(player's size)
+                case "up": worldY -= attackArea.height; break;                
+                case "down" : worldY += gp.tileSize; break;                    
+                case "left" : worldX -= attackArea.width; break;               
+                case "right" : worldX += gp.tileSize; break;                   
             }
 
             //attackArea becomes solidArea
@@ -698,6 +702,7 @@ public class Entity {
         }
     }
     public void setKnockBack(Entity target, Entity attacker, int knockBackPower)
+ // Sets the knockback effect on the target monsters when attacked
     {
         this.attacker = attacker;
         target.knockBackDirection = attacker.direction;
@@ -705,6 +710,7 @@ public class Entity {
         target.knockBack = true;
     }
     public boolean inCamera()
+ // Checks if the player is within the camera's visible range.
     {
         boolean inCamera = false;
         if(     worldX + gp.tileSize*5 > gp.player.worldX - gp.player.screenX && //*5 because skeleton lord disappears when the top left corner isn't on the screen
@@ -712,7 +718,7 @@ public class Entity {
                 worldY + gp.tileSize*5 > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY)
         {
-            inCamera = true;
+            inCamera = true; // Player is within the camera's visible range.
         }
         return inCamera;
     }
