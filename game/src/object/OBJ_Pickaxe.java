@@ -4,22 +4,25 @@ import entity.Entity;
 import main.GamePanel;
 
 public class OBJ_Pickaxe extends Entity {
-    public static final String objName = "Pickaxe";
+    public static final String objName = "Pickaxe"; 
 
-    public OBJ_Pickaxe(GamePanel gp)
-    {
-        super(gp);
+    public OBJ_Pickaxe(GamePanel gp) {
+        super(gp); // Call to the parent class constructor
 
-        type = type_pickaxe;
+        type = type_pickaxe; // Set the type of entity to pickaxe
         name = objName;
-        down1 = setup("/objects/pickaxe",gp.tileSize,gp.tileSize);
-        attackValue = 1;
-        attackArea.width = 26;
-        attackArea.height= 26;
-        description = "[" + name + "]\nYou will dig it!";
-        knockBackPower = 1;
-        motion1_duration = 10;
-        motion2_duration = 20;
+        down1 = setup("/objects/pickaxe", gp.tileSize, gp.tileSize); // Load the image for the pickaxe
+        attackValue = 1; // Set the attack value 
+        
+        // set the attack area
+        attackArea.width = 26; 
+        attackArea.height = 26; 
+        
+        description = "[" + name + "]\nYou will dig it!"; // Set the description of the pickaxe
+        knockBackPower = 1; // Set the knockback power 
+        
+        // Set the duration
+        motion1_duration = 10; 
+        motion2_duration = 20; 
     }
-
 }

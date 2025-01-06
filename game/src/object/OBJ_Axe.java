@@ -5,18 +5,23 @@ import main.GamePanel;
 
 public class OBJ_Axe extends Entity {
 
-    public static final String objName = "Woodcutter's Axe";
-    public OBJ_Axe(GamePanel gp) {
-        super(gp);
+    public static final String objName = "Woodcutter's Axe"; 
 
-        type = type_axe;
-        name = objName;
-        down1 = setup("/objects/axe",gp.tileSize,gp.tileSize);
-        attackValue = 2;
-        attackArea.width = 26;
-        attackArea.height= 26;
-        description = "[" + name + "]\nA bit rusty but still \ncan cut some trees.";
-        knockBackPower = 5;
+    public OBJ_Axe(GamePanel gp) {
+        super(gp); // Call to the parent class constructor
+
+        type = type_axe; 
+        name = objName; 
+        down1 = setup("/objects/axe", gp.tileSize, gp.tileSize); // Load the image for the axe
+        attackValue = 2; 
+        
+        //setting attacks area
+        attackArea.width = 26; 
+        attackArea.height = 26; 
+        description = "[" + name + "]\nA bit rusty but still \ncan cut some trees."; // Description of the axe
+        knockBackPower = 5; 
+        
+        //setting the duration for motions
         motion1_duration = 20;
         motion2_duration = 40;
     }
