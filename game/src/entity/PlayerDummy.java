@@ -9,10 +9,10 @@ public class PlayerDummy extends Entity{
     {
         super(gp);
 
-        name = npcName;
-        getImage();
+        name = npcName; // Set name
+        getImage();  // Load images
     }
-
+    // Load player images 
     public void getImage()
     {
         up1 = setup("/player/boy_up_1",gp.tileSize,gp.tileSize);

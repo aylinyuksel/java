@@ -7,108 +7,85 @@ import java.awt.image.BufferedImage;
 
 public class Lighting {
 
-    GamePanel gp;
-    BufferedImage darknessFilter;
-    public int dayCounter;
-    public float filterAlpha = 0f;
+    GamePanel gp; // Reference to the game panel
+    BufferedImage darknessFilter; // Image to represent the darkness filter
+    public int dayCounter; // Counter to track day progress
+    public float filterAlpha = 0f; // Alpha value for darkness transparency
 
-    public final int day = 0;
+    public final int day = 0; // Constant for day state
   
-    public int dayState = day;
+    public int dayState = day; // Current state of the day
 
-
-    public Lighting(GamePanel gp)
-    {
+    // Constructor: Initializes lighting and sets the light source
+    public Lighting(GamePanel gp) {
         this.gp = gp;
-        setLightSource();
+        setLightSource(); // Create the initial light source
     }
-    public void setLightSource()
-    {
-        //Create a buffered image
-        darknessFilter = new BufferedImage(gp.screenWidth,gp.screenHeight, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = (Graphics2D)darknessFilter.getGraphics();
 
+    // Creates the light source and applies gradient effects
+    public void setLightSource() {
+        // Create a transparent darkness filter
+        darknessFilter = new BufferedImage(gp.screenWidth, gp.screenHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = (Graphics2D) darknessFilter.getGraphics();
 
-        if(gp.player.currentLight == null)
-        {
-            g2.setColor(new Color (0,0,0.08f,0.97f));
-        }
-        else
-        {
-            //Get the center x and y of the light circle
-            int centerX = gp.player.screenX + (gp.tileSize)/2;
-            int centerY = gp.player.screenY + (gp.tileSize)/2;
+        // If the player has no active light source
+        if (gp.player.currentLight == null) {
+            g2.setColor(new Color(0, 0, 0.08f, 0.97f)); // Apply full darkness
+        } else {
+            // Calculate the center of the light circle
+            int centerX = gp.player.screenX + (gp.tileSize) / 2;
+            int centerY = gp.player.screenY + (gp.tileSize) / 2;
 
-            //Create a gradation effect within the light circle
+            // Define gradient colors and transparency levels
             Color color[] = new Color[12];
             float fraction[] = new float[12];
-            color[0] = new Color(0,0,0.08f,0.1f);    //Center
-            color[1] = new Color(0,0,0.08f,0.42f);
-            color[2] = new Color(0,0,0.08f,0.52f);
-            color[3] = new Color(0,0,0.08f,0.61f);
-            color[4] = new Color(0,0,0.08f,0.69f);
-            color[5] = new Color(0,0,0.08f,0.76f);
-            color[6] = new Color(0,0,0.08f,0.82f);
-            color[7] = new Color(0,0,0.08f,0.87f);
-            color[8] = new Color(0,0,0.08f,0.91f);
-            color[9] = new Color(0,0,0.08f,0.92f);
-            color[10] = new Color(0,0,0.08f,0.93f);
-            color[11] = new Color(0,0,0.08f,0.94f);  //Edge
+            color[0] = new Color(0, 0, 0.08f, 0.1f); // Center of the light
+            color[11] = new Color(0, 0, 0.08f, 0.94f); // Edge of the light
 
-            //Distance between gradation
-            fraction[0] = 0f;    //Center
-            fraction[1] = 0.4f;
-            fraction[2] = 0.5f;
-            fraction[3] = 0.6f;
-            fraction[4] = 0.65f;
-            fraction[5] = 0.7f;
-            fraction[6] = 0.75f;
-            fraction[7] = 0.8f;
-            fraction[8] = 0.85f;
-            fraction[9] = 0.9f;
-            fraction[10] = 0.95f;
-            fraction[11] = 1f;    //Edge
+            // Gradual transparency transition
+            fraction[0] = 0f; // Start at the center
+            fraction[11] = 1f; // End at the edge
 
-            //Create a gradation paint settings for the light circle
-            RadialGradientPaint gPaint = new RadialGradientPaint(centerX,centerY,gp.player.currentLight.lightRadius,fraction, color);
+            for (int i = 1; i < 11; i++) { // Fill intermediate gradient values
+                float alpha = 0.1f + i * 0.07f;
+                color[i] = new Color(0, 0, 0.08f, alpha);
+                fraction[i] = 0.4f + (i * 0.05f);
+            }
 
-            //Set the gradient data on g2
+            // Create a radial gradient for the light circle
+            RadialGradientPaint gPaint = new RadialGradientPaint(centerX, centerY, gp.player.currentLight.lightRadius, fraction, color);
+
+            // Apply the gradient to the graphics object
             g2.setPaint(gPaint);
         }
 
-        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
-
-        g2.dispose();
+        // Fill the entire screen with the darkness filter
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        g2.dispose(); // Release resources
     }
-    public void resetDay()
-    {
-        dayState = day;
-        filterAlpha = 0f;
-    }
-    public void update()
-    {
-        if(gp.player.lightUpdated == true)
-        {
-            setLightSource();
-            gp.player.lightUpdated = false;
-        }
 
-        //Check the state of the day
-        
-       
+    // Resets the lighting to the day state
+    public void resetDay() {
+        dayState = day; // Reset day state
+        filterAlpha = 0f; // Reset darkness transparency
     }
-    public void draw(Graphics2D g2)
-    {
-        if(gp.currentArea == gp.outside)
-        {
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,filterAlpha)); //only change alpha when outside
-        }
-        if(gp.currentArea == gp.outside || gp.currentArea == gp.dungeon || gp.currentArea == gp.dungeonnew)
-        {
-            g2.drawImage(darknessFilter,0,0,null);  //draw darkness filter outside or dungeon. alpha = 1f;
-        }
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f)); //indoor: no darkness filter
 
-        
+    // Updates the lighting, checks for changes in light source
+    public void update() {
+        if (gp.player.lightUpdated) { // If the player updated the light source
+            setLightSource(); // Recalculate the light source
+            gp.player.lightUpdated = false; // Reset update flag
+        }
+    }
+
+    // Draws the darkness filter on the screen
+    public void draw(Graphics2D g2) {
+        if (gp.currentArea == gp.outside) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filterAlpha)); // Adjust alpha for outdoor areas
+        }
+        if (gp.currentArea == gp.outside || gp.currentArea == gp.dungeon || gp.currentArea == gp.dungeonnew) {
+            g2.drawImage(darknessFilter, 0, 0, null); // Apply darkness filter for outdoor and dungeon areas
+        }
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f)); // Reset alpha for indoor areas
     }
 }

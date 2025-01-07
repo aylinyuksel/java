@@ -793,7 +793,7 @@ public class Entity {
             if(invincible == true)
             {
                 hpBarOn = true;    //when player attacks monster play hpBar
-                hpBarCounter = 0;  //reset monster aggro
+                hpBarCounter = 0;  //reset monster 
                 changeAlpha(g2,0.4F);
             }
 
@@ -930,13 +930,7 @@ public class Entity {
                     direction = "right";
                 }
             }
-            // for following player, disable this. It should be enabled when npc walking to specified location
-//            int nextCol = gp.pFinder.pathList.get(0).col;
-//            int nextRow = gp.pFinder.pathList.get(0).row;
-//            if(nextCol == goalCol && nextRow == goalRow)
-//            {
-//                onPath = false;
-//            }
+          
         }
     }
     public int getDetected(Entity user, Entity target[][], String targetName)
@@ -961,7 +955,7 @@ public class Entity {
         {
             if(target[gp.currentMap][i] != null)
             {
-                if (target[gp.currentMap][i].getCol() == col                                //checking if player 1 tile away from target (key etc.) (must be same direction)
+                if (target[gp.currentMap][i].getCol() == col //checking if player 1 tile away from target 
                         && target[gp.currentMap][i].getRow() == row
                             && target[gp.currentMap][i].name.equals(targetName))
                 {

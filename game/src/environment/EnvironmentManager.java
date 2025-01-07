@@ -6,23 +6,26 @@ import java.awt.*;
 
 public class EnvironmentManager {
 
-    GamePanel gp;
-    public Lighting lighting;
+    GamePanel gp; // Reference to the game panel
+    public Lighting lighting; // Lighting object to handle light effects
 
-    public EnvironmentManager(GamePanel gp)
-    {
-        this.gp = gp;
+    
+    public EnvironmentManager(GamePanel gp) {
+        this.gp = gp; // Set the game panel
     }
-    public void setup()
-    {
-        lighting = new Lighting(gp);
+
+    // Initialize the environment
+    public void setup() {
+        lighting = new Lighting(gp); // Create a new lighting object
     }
-    public void update()
-    {
-        lighting.update();
+
+    // Update the environment
+    public void update() {
+        lighting.update(); // Update lighting effects
     }
-    public void draw(Graphics2D g2)
-    {
-        lighting.draw(g2);
+
+    // Draw the environment
+    public void draw(Graphics2D g2) {
+        lighting.draw(g2); // Render lighting effects
     }
 }
