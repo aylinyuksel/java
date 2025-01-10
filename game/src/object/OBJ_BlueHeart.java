@@ -20,8 +20,8 @@ public class OBJ_BlueHeart extends Entity {
 
     // set the dialogues for when the Blue Heart is picked up
     public void setDialogues() {
-        dialogues[0][0] = "You pick up a beautiful blue gem."; 
-        dialogues[0][1] = "You find the Blue Heart, the legendary treasure!"; 
+    	dialogues[0][0] = "You have won the treasure!";
+        
     }
 
     // use the Blue Heart object

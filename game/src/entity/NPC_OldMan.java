@@ -45,8 +45,8 @@ public class NPC_OldMan extends Entity {
         // Define the dialogue text for the NPC
         dialogues[0][0] = "Congratulations, hero!";
         dialogues[0][1] = "You have reached the end of this challenging journey.";
-        dialogues[0][2] = "Escaping from the underground wasn’t easy, but you made it.";
-        dialogues[0][4] = "Well, good luck on you.";
+        dialogues[0][2] = "Escaping from the underground wasn’t easy, \n but you made it.";
+        
         dialogues[0][3] = "This treasure is now yours—use it to live a happy life.";
     }
 

@@ -1,8 +1,9 @@
 package monster;
 
 import entity.Entity;
+
 import main.GamePanel;
-import object.OBJ_Coin_Bronze;
+
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;
 import object.OBJ_Rock;
@@ -76,17 +77,15 @@ public class MON_GreenSlime extends Entity {
 
     public void checkDrop()
     {
-        // Generate a random number between 1 and 100 to determine the item drop
+        // generating a random number between 1 and 100
         int i = new Random().nextInt(100) + 1;
 
-        // Set item drop based on the random number
-        if (i < 50) {
-            dropItem(new OBJ_Coin_Bronze(gp)); 
+        // Set item drop chances based on random number
+      
+        if(i <= 50) {
+            dropItem(new OBJ_Heart(gp));
         }
-        if (i >= 50 && i < 75) {
-            dropItem(new OBJ_Heart(gp)); 
-        }
-        if (i >= 75 && i < 100) {
+        if(i>50 && i < 100) {
             dropItem(new OBJ_ManaCrystal(gp)); 
         }
     }

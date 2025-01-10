@@ -1,7 +1,6 @@
 package main;
 
 import entity.Entity;
-import object.OBJ_Coin_Bronze;
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;
 
@@ -62,8 +61,8 @@ public class UI {
         Entity crystal = new OBJ_ManaCrystal(gp);
         crystal_full = crystal.image;
         crystal_blank = crystal.image2;
-        Entity bronzeCoin = new OBJ_Coin_Bronze(gp);
-        coin = bronzeCoin.down1;
+     
+        
     }
     public void drawPauseScreen()
     {

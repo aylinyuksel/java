@@ -29,27 +29,7 @@ public class AssetSetter {
         
         mapNum = 4;
         i = 0;
-        //adding assets on the map 4
-        gp.obj[mapNum][i] = new OBJ_Coin_Bronze(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 23;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 31;
-        i++;
-        gp.obj[mapNum][i] = new OBJ_Coin_Bronze(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 24;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 31;
-        i++;
-        gp.obj[mapNum][i] = new OBJ_Coin_Bronze(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 24;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 32;
-        i++;
-        gp.obj[mapNum][i] = new OBJ_Coin_Bronze(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 24;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 33;
-        i++;
-        gp.obj[mapNum][i] = new OBJ_Coin_Bronze(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 22;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 31;
-        i++;
+   
        
         
         mapNum = 0;
@@ -158,10 +138,7 @@ public class AssetSetter {
         
         mapNum = 1;//new map
         i=0;
-        gp.obj[mapNum][i] = new OBJ_Coin_Bronze(gp);
-        gp.obj[mapNum][i].worldX = gp.tileSize * 10;
-        gp.obj[mapNum][i].worldY = gp.tileSize * 10;
-        i++;
+        
 
         mapNum = 2; //new map
         i = 0;

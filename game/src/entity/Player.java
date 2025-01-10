@@ -43,7 +43,7 @@ public class Player extends Entity{
     {
         //Default Starting Positions
         worldX = gp.tileSize * 24;
-        worldY = gp.tileSize * 36;
+        worldY = gp.tileSize * 28;
         gp.currentMap = 4;
         gp.currentArea = gp.outside;
 

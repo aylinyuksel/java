@@ -1,9 +1,10 @@
 package monster;
 
 import data.Progress;
+
 import entity.Entity;
 import main.GamePanel;
-import object.OBJ_Coin_Bronze;
+
 import object.OBJ_Door_Iron;
 import object.OBJ_Heart;
 import object.OBJ_ManaCrystal;
@@ -26,7 +27,7 @@ public class MON_SkeletonLord extends Entity {
         name = monName; 
         defaultSpeed = 1; 
         speed = defaultSpeed; // Set current speed
-        maxLife = 40; 
+        maxLife = 5; 
         life = maxLife; // Set current health
         attack = 16; 
         defense = 3; 
@@ -113,9 +114,9 @@ public class MON_SkeletonLord extends Entity {
 
     // set dialogue for the monster
     public void setDialogue() {
-        dialogues[0][0] = "No one can steal my treasure.";
-        dialogues[0][1] = "You will die here.";
-        dialogues[0][2] = "WELCOME TO YOUR DOOM!";
+        dialogues[0][0] = "You have come all this way for nothing, warrior.";
+        dialogues[0][1] = "You will never make it out of here alive.";
+        dialogues[0][2] = "You will remain in this dungeon forever! \n HA HA HA HA!";
     }
 
     // define monster behavior
@@ -168,13 +169,11 @@ public class MON_SkeletonLord extends Entity {
 
         // Randomly determine the items to drop by generating numbers between 1 to 100
         int i = new Random().nextInt(100) + 1;
-        if (i < 50) {
-            dropItem(new OBJ_Coin_Bronze(gp)); 
-        }
-        if (i >= 50 && i < 75) {
+        
+        if(i <= 50) {
             dropItem(new OBJ_Heart(gp));
         }
-        if (i >= 75 && i < 100) {
+        if(i>50 && i < 100) {
             dropItem(new OBJ_ManaCrystal(gp)); 
         }
     }

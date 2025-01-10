@@ -183,10 +183,12 @@ public class CutsceneManager {
             //show message gradually
             alpha = graduallyAlpha(alpha, 0.005f);
 
-            String text = "After the fierce battle with the Skeleton Lord,\n"
-                    + "the Blue Boy finally found the legendary treasure.\n"
-                    + "But this is not the end of his journey.\n"
-                    + "The Blue Boy's adventure has just begun.";
+            String text = "The warrior finally escaped the dungeon with the treasure .\n"
+            		+ "He left the dangers behind and started a new, happy life.\n"
+            		+ "With the treasure, he built a peaceful home and never looked back.\n"
+            		+ "His adventure was over, but his story will always be remembered.";
+
+
 
             drawString(alpha, 38f, 200, text, 70);
 

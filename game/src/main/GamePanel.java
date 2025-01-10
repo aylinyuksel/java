@@ -459,7 +459,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
             if(nextArea == finalscence)
             {
-                playMusic(19);
+                playMusic(23);
             }
             aSetter.setNPC(); //reset for at the dungeon puzzle's stuck rocks.
         }
