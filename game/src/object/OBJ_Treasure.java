@@ -10,18 +10,18 @@ package object;
 import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_BlueHeart extends Entity {
+public class OBJ_Treasure extends Entity {
 
     GamePanel gp; 
-    public static final String objName = "Blue Heart";
+    public static final String objName = "Treasure";
 
-    public OBJ_BlueHeart(GamePanel gp) {
+    public OBJ_Treasure(GamePanel gp) {
         super(gp); // Call to the parent class constructor
         this.gp = gp; // Store the GamePanel reference for later use
 
         type = type_pickupOnly; // Set the type of entity to pickup only (cannot be used)
         name = objName;
-        down1 = setup("/objects/blueheart", gp.tileSize, gp.tileSize); // Load the image for the Blue Heart
+        down1 = setup("/objects/treasure", gp.tileSize, gp.tileSize); // Load the image for the treasure
         setDialogues(); 
     }
 

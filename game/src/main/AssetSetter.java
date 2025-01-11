@@ -162,7 +162,7 @@ public class AssetSetter {
 
      
         mapNum =6;
-        gp.obj[mapNum][i] = new OBJ_BlueHeart(gp);
+        gp.obj[mapNum][i] = new OBJ_Treasure(gp);
         gp.obj[mapNum][i].worldX = gp.tileSize * 24;
         gp.obj[mapNum][i].worldY = gp.tileSize * 24;
         i++;

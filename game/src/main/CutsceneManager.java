@@ -9,7 +9,7 @@ package main;
 
 import entity.PlayerDummy;
 import monster.MON_SkeletonLord;
-import object.OBJ_BlueHeart;
+import object.OBJ_Treasure;
 import object.OBJ_Door_Iron;
 
 import java.awt.*;
@@ -150,7 +150,7 @@ public class CutsceneManager {
         if(scenePhase == 0)
         {
             gp.stopMusic();
-            gp.ui.npc = new OBJ_BlueHeart(gp);  
+            gp.ui.npc = new OBJ_Treasure(gp);  
             scenePhase++;
         }
         if(scenePhase == 1)
