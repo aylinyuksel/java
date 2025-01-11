@@ -12,9 +12,9 @@ import main.GamePanel;
 import java.awt.*;
 import java.util.Random;
 
-public class NPC_OldMan extends Entity {
+public class NPC_fairy extends Entity {
 
-    public NPC_OldMan(GamePanel gp) {
+    public NPC_fairy(GamePanel gp) {
         super(gp);
         direction = "down"; // Initial direction of the NPC
         speed = 1; // Movement speed of the NPC
@@ -38,14 +38,14 @@ public class NPC_OldMan extends Entity {
 
     public void getImage() {
         // Load images for all directions
-        up1 = setup("/npc/oldman_up_1", gp.tileSize, gp.tileSize);
-        up2 = setup("/npc/oldman_up_2", gp.tileSize, gp.tileSize);
-        down1 = setup("/npc/oldman_down_1", gp.tileSize, gp.tileSize);
-        down2 = setup("/npc/oldman_down_2", gp.tileSize, gp.tileSize);
-        left1 = setup("/npc/oldman_left_1", gp.tileSize, gp.tileSize);
-        left2 = setup("/npc/oldman_left_2", gp.tileSize, gp.tileSize);
-        right1 = setup("/npc/oldman_right_1", gp.tileSize, gp.tileSize);
-        right2 = setup("/npc/oldman_right_2", gp.tileSize, gp.tileSize);
+        up1 = setup("/npc/fairy_up_1", gp.tileSize, gp.tileSize);
+        up2 = setup("/npc/fairy_up_2", gp.tileSize, gp.tileSize);
+        down1 = setup("/npc/fairy_down_1", gp.tileSize, gp.tileSize);
+        down2 = setup("/npc/fairy_down_2", gp.tileSize, gp.tileSize);
+        left1 = setup("/npc/fairy_left_1", gp.tileSize, gp.tileSize);
+        left2 = setup("/npc/fairy_left_2", gp.tileSize, gp.tileSize);
+        right1 = setup("/npc/fairy_right_1", gp.tileSize, gp.tileSize);
+        right2 = setup("/npc/fairy_right_2", gp.tileSize, gp.tileSize);
     }
 
     public void setDialogue() {

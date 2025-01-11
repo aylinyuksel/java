@@ -4,7 +4,7 @@ import data.Progress;
 
 import entity.NPC_BigRock;
 //import entity.NPC_Merchant;
-import entity.NPC_OldMan;
+import entity.NPC_fairy;
 import monster.*;
 import object.*;
 import tile_interactive.IT_DestructibleWall;
@@ -191,7 +191,7 @@ public class AssetSetter {
         i++;
         mapNum = 6;
         i=0;
-        gp.npc[mapNum][i] = new NPC_OldMan(gp);
+        gp.npc[mapNum][i] = new NPC_fairy(gp);
         gp.npc[mapNum][i].worldX = gp.tileSize*21;
         gp.npc[mapNum][i].worldY = gp.tileSize*21;
         i++;
