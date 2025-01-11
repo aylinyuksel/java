@@ -25,13 +25,13 @@ public class OBJ_Treasure extends Entity {
         setDialogues(); 
     }
 
-    // set the dialogues for when the Blue Heart is picked up
+    // set the dialogues for when the treasure is picked up
     public void setDialogues() {
     	dialogues[0][0] = "You have won the treasure!";
         
     }
 
-    // use the Blue Heart object
+    // use the treasure object
     public boolean use(Entity entity) {
         gp.gameState = gp.cutsceneState; // Change the game state to cutscene state
         gp.csManager.sceneNum = gp.csManager.ending; // Trigger the ending scene in the cutscene manager
